@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Baccarat Outcome Predictor</title>
+<style>
+  /* Same CSS styling as before for consistency */
+  body { background: #121212; color: #eee; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 40px 20px; margin: 0; }
+  .container { background: #1e1e1e; padding: 30px 40px; border-radius: 10px; box-shadow: 0 0 20px #2c2c2c; width: 400px; max-width: 90vw; }
+  h1 { margin-bottom: 24px; text-align: center; color: #f39c12; text-shadow: 0 0 5px #f39c12; }
+  label { display: block; font-weight: 600; margin-bottom: 8px; color: #ddd; }
+  input[type="text"] { width: 100%; padding: 10px 12px; font-size: 16px; border: none; border-radius: 6px; outline: none; margin-bottom: 20px; box-sizing: border-box; background: #292929; color: #eee; letter-spacing: 0.05em; }
+  input[type="text"]::placeholder { color: #777; }
+  button { width: 100%; padding: 12px 0; font-size: 18px; font-weight: 700; color: #fff; background-color: #f39c12; border: none; border-radius: 6px; cursor: pointer; transition: background-color 0.3s ease; user-select: none; }
+  button:hover { background-color: #d78e0e; }
+  #result, #saveResult { margin-top: 20px; background: #2c2c2c; padding: 15px; border-radius: 8px; font-size: 15px; color: #ccc; }
+  .error { color: #e74c3c; font-weight: 600; }
+  hr { border: 1px solid #444; margin: 30px 0; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Baccarat Outcome Predictor</h1>
+
+  <!-- Prediction section -->
+  <label for="outcomesInput">Enter Last 10 Outcomes (comma-separated):</label>
+  <input type="text" id="outcomesInput" placeholder='e.g., Player,Banker,Player,...' autocomplete="off" />
+
+  <button id="predictBtn">Predict From Sequence</button>
+  <div id="result"></div>
+
+  <!-- Add historical game data -->
+  <hr>
+  <h3 style="margin-top: 0; color: #f39c12;">Add Historical Game Data</h3>
+  <label for="playerHand">Player Hand (e.g., A-9):</label>
+  <input type="text" id="playerHand" placeholder="e.g., A-9" />
+
+  <label for="bankerHand">Banker Hand (e.g., K-7):</label>
+  <input type="text" id="bankerHand" placeholder="e.g., K-7" />
+
+  <label for="outcome">Outcome:</label>
+<select id="outcome">
+  <option value="">Select Outcome</option>
+  <option value="Player">Player</option>
+  <option value="Banker">Banker</option>
+  <option value="Tie">Tie</option>
+</select>
+
+  <button id="saveGameBtn">Save Historical Game</button>
+  <div id="saveResult"></div>
+</div>
+
+<script>
+  const input = document.getElementById('outcomesInput');
+  const button = document.getElementById('predictBtn');
+  const resultDiv = document.getElementById('result');
+
+  // Remove historical input entirely (as requested)
+
+  input.addEventListener('input', () => {
+    let val = input.value;
+    val = val.replace(/[^a-zA-Z, ]/g, '');
+    val = val.replace(/\s*,\s*/g, ',').replace(/,+/g, ',').trim();
+    input.value = val;
+  });
+
+  button.addEventListener('click', async () => {
+    resultDiv.textContent = '';
+    const rawRecent = input.value.trim();
+
+    if (!rawRecent) {
+      resultDiv.innerHTML = '<span class="error">Please enter the last 10 outcomes.</span>';
+      return;
+    }
+
+    const outcomes = rawRecent.split(',').map(o => o.trim().toLowerCase());
+    if (outcomes.length !== 10) {
+      resultDiv.innerHTML = '<span class="error">Exactly 10 outcomes required.</span>';
+      return;
+    }
+
+    const validOutcomes = ['player', 'banker'];
+    for (const o of outcomes) {
+      if (!validOutcomes.includes(o)) {
+        resultDiv.innerHTML = '<span class="error">Outcomes must be only "Player" or "Banker".</span>';
+        return;
+      }
+    }
+
+    const payload = {
+      outcomes: outcomes.map(o => o.charAt(0).toUpperCase() + o.slice(1)),
+    };
+
+    try {
+      const resp = await fetch('/predict_sequence', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+      });
+
+      if (!resp.ok) {
+        const error = await resp.json();
+        resultDiv.innerHTML = `<span class="error">Error: ${error.error || 'Unknown error'}</span>`;
+        return;
+      }
+
+      const data = await resp.json();
+
+      let html = `<strong>Prediction:</strong> ${data.prediction} <br>`;
+      html += `<strong>Confidence:</strong> ${data.confidence} <br>`;
+      html += `<strong>Based on:</strong> ${data.based_on} <br>`;
+      if (data.based_on === 'pattern_match') {
+        html += `<strong>Matches found:</strong> ${data.matches_found} <br>`;
+        html += `<details><summary>Sample Matches</summary>`;
+        data.match_details.forEach(match => {
+          html += `<div style="margin-top:8px; font-family: monospace;">
+            Start index: ${match.start_index}<br>
+            Matched sequence: ${match.matched_sequence.join(', ')}<br>
+            Next outcome: ${match.next_outcome}<br>
+            Match type: ${match.match_type}<br>
+            Similarity: ${match.similarity}%
+          </div>`;
+        });
+        html += `</details>`;
+      } else if (data.reason) {
+        html += `<em>Reason: ${data.reason}</em>`;
+      }
+
+      resultDiv.innerHTML = html;
+    } catch (e) {
+      resultDiv.innerHTML = `<span class="error">Request failed. Please try again.</span>`;
+    }
+  });
+
+  // Auto-format player and banker hand inputs (add hyphens)
+  ['playerHand', 'bankerHand'].forEach(id => {
+    const el = document.getElementById(id);
+    el.addEventListener('input', () => {
+      let val = el.value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+      el.value = val.split('').join('-');
+    });
+  });
+
+  document.getElementById('saveGameBtn').addEventListener('click', async () => {
+    const playerHand = document.getElementById('playerHand').value.trim();
+    const bankerHand = document.getElementById('bankerHand').value.trim();
+    const outcome = document.getElementById('outcome').value;
+
+
+    const saveResult = document.getElementById('saveResult');
+    saveResult.textContent = '';
+
+    if (!playerHand || !bankerHand || !outcome) {
+      saveResult.innerHTML = '<span class="error">All fields are required.</span>';
+      return;
+    }
+
+    const validOutcomes = ['player', 'banker', 'tie'];
+    if (!validOutcomes.includes(outcome.toLowerCase())) {
+      saveResult.innerHTML = '<span class="error">Outcome must be Player, Banker, or Tie.</span>';
+      return;
+    }
+
+    const payload = {
+      player_hand: playerHand,
+      banker_hand: bankerHand,
+      outcome: outcome.charAt(0).toUpperCase() + outcome.slice(1).toLowerCase()
+    };
+
+    try {
+      const resp = await fetch('/add_game', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await resp.json();
+
+      if (!resp.ok) {
+        saveResult.innerHTML = `<span class="error">Error: ${data.error || 'Unknown error'}</span>`;
+        return;
+      }
+
+      saveResult.innerHTML = `<span style="color: #2ecc71;">${data.message}</span>`;
+    } catch (e) {
+      saveResult.innerHTML = `<span class="error">Request failed. Please try again.</span>`;
+    }
+  });
+</script>
+</body>
+</html>
