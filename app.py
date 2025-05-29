@@ -8,17 +8,12 @@ app = Flask(__name__)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_FILE = os.path.join(BASE_DIR, 'data', 'game_data.json')
 
-
 # ---------- Utilities ----------
-
-
 def create_initial_data():
     if not os.path.exists(DATA_FILE):
+        os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
         with open(DATA_FILE, 'w') as f:
             json.dump([], f, indent=2)
-
-
-
 
 def fix_hand(hand_str):
     valid_cards = {'A','2','3','4','5','6','7','8','9','10','J','Q','K'}
@@ -63,18 +58,6 @@ def baccarat_total(hand_str):
     except:
         return 0
 
-def is_natural(total):
-    return total in [8, 9]
-
-def early_end(player_total, banker_total):
-    if is_natural(player_total) or is_natural(banker_total):
-        return True
-    if {player_total, banker_total} == {6, 7}:
-        return True
-    if player_total == banker_total and player_total in [6, 7, 8, 9]:
-        return True
-    return False
-
 def determine_outcome(player_total, banker_total):
     if player_total > banker_total:
         return 'Player'
@@ -87,13 +70,6 @@ def determine_outcome(player_total, banker_total):
 @app.route('/')
 def home():
     return render_template('index.html')
-
-@app.route('/debug')
-def debug_template():
-    return jsonify({
-        "template_dir": os.path.abspath("templates"),
-        "index_exists": os.path.exists("templates/index.html")
-    })
 
 @app.route('/add_game', methods=['POST'])
 def add_game():
@@ -134,30 +110,26 @@ def add_game():
 def predict_sequence():
     try:
         data = request.get_json()
-        user_sequence = data.get('outcomes', [])
-        historical = data.get('historical', [])
+        sequence = data.get('sequence', [])
 
-        if len(user_sequence) != 10 or any(o not in ["Player", "Banker"] for o in user_sequence):
-            return jsonify({'error': 'Please provide exactly 10 valid outcomes: "Player" or "Banker"'}), 400
+        if len(sequence) < 10 or any(o not in ["Player", "Banker"] for o in sequence):
+            return jsonify({'error': 'Provide at least 10 valid outcomes: "Player" or "Banker"'}), 400
 
-        # Combine historical data if provided, else use stored data
-        if historical:
-            all_outcomes = [o for o in historical if o in ['Player', 'Banker']]
-        else:
-            historical_data = load_data()
-            all_outcomes = [g['outcome'] for g in historical_data if g['outcome'] in ['Player', 'Banker']]
+        # Use last 10 rounds for prediction
+        user_sequence = sequence[-10:]
 
+        historical_data = load_data()
+        all_outcomes = [g['outcome'] for g in historical_data if g['outcome'] in ['Player', 'Banker']]
+
+        # Exact/Fuzzy match logic
         match_results = []
         for i in range(len(all_outcomes) - 10):
             window = all_outcomes[i:i+10]
             next_outcome = all_outcomes[i+10] if i + 10 < len(all_outcomes) else None
-
             if not next_outcome:
                 continue
-
             exact_match = user_sequence == window
             fuzzy_match_ratio = SequenceMatcher(None, user_sequence, window).ratio()
-
             if exact_match or fuzzy_match_ratio >= 0.8:
                 match_results.append({
                     'start_index': i,
@@ -167,6 +139,8 @@ def predict_sequence():
                     'similarity': round(fuzzy_match_ratio * 100, 2)
                 })
 
+        predictions = []
+
         if match_results:
             outcome_counts = {'Player': 0, 'Banker': 0}
             for match in match_results:
@@ -175,28 +149,51 @@ def predict_sequence():
             total = outcome_counts['Player'] + outcome_counts['Banker']
             predicted = max(outcome_counts, key=outcome_counts.get)
             confidence = round((outcome_counts[predicted] / total) * 100, 2)
-
-            return jsonify({
+            predictions.append({
                 'prediction': predicted,
                 'confidence': f"{confidence}%",
                 'based_on': 'pattern_match',
-                'matches_found': len(match_results),
-                'match_details': match_results[:5]
+                'matches_found': len(match_results)
             })
-        else:
+
+        # Partial match fallback logic
+        partial_match_counts = {'Player': 0, 'Banker': 0}
+        for i in range(len(all_outcomes) - 10):
+            window = all_outcomes[i:i+10]
+            next_outcome = all_outcomes[i+10]
+            fuzzy_match_ratio = SequenceMatcher(None, user_sequence, window).ratio()
+            if fuzzy_match_ratio >= 0.5:
+                partial_match_counts[next_outcome] += 1
+
+        total_partial = partial_match_counts['Player'] + partial_match_counts['Banker']
+        if total_partial > 0:
+            predicted = max(partial_match_counts, key=partial_match_counts.get)
+            confidence = round((partial_match_counts[predicted] / total_partial) * 100, 2)
+            predictions.append({
+                'prediction': predicted,
+                'confidence': f"{confidence}%",
+                'based_on': 'partial_match_fallback'
+            })
+
+        # Final fallback if no historical data at all
+        if not predictions:
             fallback_counts = {'Player': user_sequence.count('Player'), 'Banker': user_sequence.count('Banker')}
             fallback_pred = max(fallback_counts, key=fallback_counts.get)
             fallback_conf = round((fallback_counts[fallback_pred] / 10) * 100, 2)
-
-            return jsonify({
+            predictions.append({
                 'prediction': fallback_pred,
                 'confidence': f"{fallback_conf}%",
-                'based_on': 'fallback_logic',
-                'reason': 'no matching pattern found in historical data'
+                'based_on': 'final_fallback',
+                'reason': 'no historical pattern found'
             })
+
+        return jsonify({
+            'predictions': predictions
+        })
     except Exception as e:
         return jsonify({'error': 'Prediction failed', 'details': str(e)}), 500
 
 # ---------- Run App ----------
 if __name__ == '__main__':
+    create_initial_data()
     app.run(host='0.0.0.0', port=3000, debug=True)
