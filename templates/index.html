@@ -73,33 +73,46 @@
     resultDiv.textContent = '';
 
     if (sequence.length < 10) {
-      resultDiv.innerHTML = '<span class="error">Need at least 10 outcomes to predict.</span>';
+      resultDiv.innerHTML = '<span class="error">At least 10 outcomes are required for prediction.</span>';
       return;
     }
+
+    const last10 = sequence.slice(-10);
 
     try {
       const resp = await fetch('/predict_sequence', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ sequence })
+        body: JSON.stringify({ outcomes: last10 })
       });
 
+      const data = await resp.json();
+
       if (!resp.ok) {
-        const error = await resp.json();
-        resultDiv.innerHTML = `<span class="error">Error: ${error.error || 'Unknown error'}</span>`;
+        resultDiv.innerHTML = `<span class="error">Error: ${data.error || 'Unknown error'}</span>`;
         return;
       }
 
-      const data = await resp.json();
-      let html = '';
-      data.predictions.forEach((p, idx) => {
-        html += `<div style="margin-bottom: 10px;">
-          <strong>Model ${idx + 1}:</strong><br>
-          Prediction: ${p.prediction} <br>
-          Confidence: ${p.confidence} <br>
-          Based on: ${p.based_on}
-        </div>`;
-      });
+      let html = `<strong>Prediction:</strong> ${data.prediction} <br>`;
+      html += `<strong>Confidence:</strong> ${data.confidence} <br>`;
+      html += `<strong>Based on:</strong> ${data.based_on} <br>`;
+      if (data.based_on === 'pattern_match') {
+        html += `<strong>Matches found:</strong> ${data.matches_found} <br>`;
+        html += `<details><summary>Sample Matches</summary>`;
+        data.match_details.forEach(match => {
+          html += `<div style="margin-top:8px; font-family: monospace;">
+            Start index: ${match.start_index}<br>
+            Matched sequence: ${match.matched_sequence.join(', ')}<br>
+            Next outcome: ${match.next_outcome}<br>
+            Match type: ${match.match_type}<br>
+            Similarity: ${match.similarity}%
+          </div>`;
+        });
+        html += `</details>`;
+      } else if (data.reason) {
+        html += `<em>Reason: ${data.reason}</em>`;
+      }
+
       resultDiv.innerHTML = html;
     } catch (e) {
       resultDiv.innerHTML = `<span class="error">Request failed. Please try again.</span>`;

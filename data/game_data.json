@@ -9233,5 +9233,210 @@
     "player_hand": "5-3",
     "banker_hand": "2-Q",
     "outcome": "Player"
+  },
+  {
+    "player_hand": "7-7-4",
+    "banker_hand": "2-K-3",
+    "outcome": "Player"
+  },
+  {
+    "player_hand": "2-9",
+    "banker_hand": "J-9",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "4-4",
+    "banker_hand": "Q-10",
+    "outcome": "Player"
+  },
+  {
+    "player_hand": "A-2-10",
+    "banker_hand": "A-2-2",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "2-2-7",
+    "banker_hand": "3-7-4",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "K-2-10",
+    "banker_hand": "10-10-9",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "A-2-Q",
+    "banker_hand": "K-4",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "2-6",
+    "banker_hand": "5-J",
+    "outcome": "Player"
+  },
+  {
+    "player_hand": "8-3",
+    "banker_hand": "9-J",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "A-J-8",
+    "banker_hand": "J-2-Q",
+    "outcome": "Player"
+  },
+  {
+    "player_hand": "8-6-A",
+    "banker_hand": "J-Q-5",
+    "outcome": "Tie"
+  },
+  {
+    "player_hand": "10-J-A",
+    "banker_hand": "10-10-7",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "J-J-Q",
+    "banker_hand": "J-3-6",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "Q-6",
+    "banker_hand": "Q-7",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "3-2",
+    "banker_hand": "8-K",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "Q-6",
+    "banker_hand": "5-3",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "9-A-8",
+    "banker_hand": "7-10",
+    "outcome": "Player"
+  },
+  {
+    "player_hand": "K-9",
+    "banker_hand": "Q-9",
+    "outcome": "Tie"
+  },
+  {
+    "player_hand": "J-Q-2",
+    "banker_hand": "9-4-4",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "6-2",
+    "banker_hand": "A-8",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "4-10-K",
+    "banker_hand": "5-10",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "2-9-A",
+    "banker_hand": "3-J-A",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "4-7-6",
+    "banker_hand": "K-6-Q",
+    "outcome": "Player"
+  },
+  {
+    "player_hand": "10-5-5",
+    "banker_hand": "A-Q-J",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "5-2",
+    "banker_hand": "8-J",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "Q-4-9",
+    "banker_hand": "10-7",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "6-K",
+    "banker_hand": "K-8",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "9-8",
+    "banker_hand": "6-K",
+    "outcome": "Player"
+  },
+  {
+    "player_hand": "K-4",
+    "banker_hand": "K-Q-9",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "8-K",
+    "banker_hand": "10-A",
+    "outcome": "Player"
+  },
+  {
+    "player_hand": "8-9",
+    "banker_hand": "3-9-4",
+    "outcome": "Player"
+  },
+  {
+    "player_hand": "6-J",
+    "banker_hand": "A-4-3",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "9-9",
+    "banker_hand": "A-7",
+    "outcome": "Tie"
+  },
+  {
+    "player_hand": "3-J-A",
+    "banker_hand": "6-9",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "6-3",
+    "banker_hand": "6-K",
+    "outcome": "Player"
+  },
+  {
+    "player_hand": "J-9",
+    "banker_hand": "K-6",
+    "outcome": "Player"
+  },
+  {
+    "player_hand": "J-5-10",
+    "banker_hand": "5-5-9",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "2-4",
+    "banker_hand": "3-3",
+    "outcome": "Tie"
+  },
+  {
+    "player_hand": "3-3",
+    "banker_hand": "5-4",
+    "outcome": "Banker"
+  },
+  {
+    "player_hand": "10-6",
+    "banker_hand": "5-K-6",
+    "outcome": "Player"
+  },
+  {
+    "player_hand": "7-4-K",
+    "banker_hand": "A-A-2",
+    "outcome": "Banker"
   }
 ]
