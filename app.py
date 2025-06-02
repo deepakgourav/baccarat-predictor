@@ -112,13 +112,13 @@ def predict_sequence():
         data = request.get_json()
         user_sequence = data.get('outcomes', [])
 
-        if len(user_sequence) < 10 or any(o not in ["Player", "Banker"] for o in user_sequence):
-            return jsonify({'error': 'Please provide at least 10 valid outcomes: "Player" or "Banker"'}), 400
+        if len(user_sequence) < 10 or any(o not in ["Player", "Banker", "Tie"] for o in user_sequence):
+            return jsonify({'error': 'Please provide at least 10 valid outcomes including Player, Banker, or Tie'}), 400
 
         seq_len = len(user_sequence)
 
         historical_data = load_data()
-        all_outcomes = [g['outcome'] for g in historical_data if g['outcome'] in ['Player', 'Banker']]
+        all_outcomes = [g['outcome'] for g in historical_data if g['outcome'] in ['Player', 'Banker', 'Tie']]
 
         match_results = []
 
@@ -126,8 +126,8 @@ def predict_sequence():
             window = all_outcomes[i:i+seq_len]
             next_outcome = all_outcomes[i+seq_len] if i + seq_len < len(all_outcomes) else None
 
-            if not next_outcome:
-                continue
+            if not next_outcome or next_outcome == "Tie":
+                continue  # skip if next is tie or none
 
             exact_match = user_sequence == window
             fuzzy_match_ratio = SequenceMatcher(None, user_sequence, window).ratio()
@@ -159,9 +159,13 @@ def predict_sequence():
                 'match_details': match_results[:5]
             })
         else:
-            fallback_counts = {'Player': user_sequence.count('Player'), 'Banker': user_sequence.count('Banker')}
+            # fallback only uses P/B
+            fallback_counts = {
+                'Player': user_sequence.count('Player'),
+                'Banker': user_sequence.count('Banker')
+            }
             fallback_pred = max(fallback_counts, key=fallback_counts.get)
-            fallback_conf = round((fallback_counts[fallback_pred] / seq_len) * 100, 2)
+            fallback_conf = round((fallback_counts[fallback_pred] / (fallback_counts['Player'] + fallback_counts['Banker'])) * 100, 2)
 
             return jsonify({
                 'prediction': fallback_pred,
@@ -173,6 +177,6 @@ def predict_sequence():
     except Exception as e:
         return jsonify({'error': 'Prediction failed', 'details': str(e)}), 500
 
-# ---------- Run App ----------
+# ---------- Run ----------
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3000, debug=True)
