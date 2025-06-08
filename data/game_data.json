@@ -13737,11 +13737,6 @@
   {
     "player_hand": "4-9-4",
     "banker_hand": "J-2-9",
-    "outcome": "Banker"
-  },
-  {
-    "player_hand": "4-9-4",
-    "banker_hand": "J-2-9",
     "outcome": "Player"
   },
   {
