@@ -9,18 +9,25 @@ DATA_FILE = 'data/game_data.json'
 
 # ---------- Utilities ----------
 def fix_hand(hand_str):
-    valid_cards = {'A','2','3','4','5','6','7','8','9','10','J','Q','K'}
-    hand_str = str(hand_str).replace('-', '')
-    cards = []
-    i = 0
-    while i < len(hand_str):
-        if hand_str[i] == '1' and i+1 < len(hand_str) and hand_str[i+1] == '0':
-            cards.append('10')
-            i += 2
+    if not hand_str:
+        return None
+
+    valid_cards = {'A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'}
+    parts = str(hand_str).split('-')
+    clean_cards = []
+
+    for card in parts:
+        card = card.strip().upper()
+        if card in valid_cards:
+            clean_cards.append(card)
         else:
-            cards.append(hand_str[i])
-            i += 1
-    return '-'.join(card for card in cards if card in valid_cards)
+            return None  # Invalid card found
+
+    if not clean_cards or len(clean_cards) > 3:
+        return None
+
+    return '-'.join(clean_cards)
+
 
 def load_data():
     try:
@@ -77,6 +84,11 @@ def add_game():
         data = request.get_json()
         player_hand = fix_hand(data.get('player_hand', ''))
         banker_hand = fix_hand(data.get('banker_hand', ''))
+        if player_hand is None:
+    return jsonify({'error': 'Invalid player_hand format or contains wrong cards'}), 400
+if banker_hand is None:
+    return jsonify({'error': 'Invalid banker_hand format or contains wrong cards'}), 400
+
         outcome = data.get('outcome', '')
 
         if not all([player_hand, banker_hand, outcome]):
