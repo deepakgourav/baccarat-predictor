@@ -28,7 +28,6 @@ def fix_hand(hand_str):
 
     return '-'.join(clean_cards)
 
-
 def load_data():
     try:
         with open(DATA_FILE, 'r') as f:
@@ -84,10 +83,11 @@ def add_game():
         data = request.get_json()
         player_hand = fix_hand(data.get('player_hand', ''))
         banker_hand = fix_hand(data.get('banker_hand', ''))
+
         if player_hand is None:
-    return jsonify({'error': 'Invalid player_hand format or contains wrong cards'}), 400
-if banker_hand is None:
-    return jsonify({'error': 'Invalid banker_hand format or contains wrong cards'}), 400
+            return jsonify({'error': 'Invalid player_hand format or contains wrong cards'}), 400
+        if banker_hand is None:
+            return jsonify({'error': 'Invalid banker_hand format or contains wrong cards'}), 400
 
         outcome = data.get('outcome', '')
 
