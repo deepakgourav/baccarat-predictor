@@ -8,7 +8,7 @@
   body { background: #121212; color: #eee; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 40px 20px; margin: 0; }
   .container { background: #1e1e1e; padding: 25px 35px; border-radius: 10px; box-shadow: 0 0 25px rgba(0,0,0,0.5); width: 420px; max-width: 90vw; }
   h1 { margin-top: 0; margin-bottom: 24px; text-align: center; color: #bb86fc; text-shadow: 0 0 5px #bb86fc; }
-  h3 { color: #bb86fc; margin-top: 0; border-top: 1px solid #444; padding-top: 25px; margin-bottom: 20px;}
+  h3 { color: #bb86fc; margin-top: 25px; border-top: 1px solid #444; padding-top: 25px; margin-bottom: 20px;}
   h4 { color: #03dac6; margin-bottom: 10px; margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 5px; }
   label { display: block; font-weight: 600; margin-bottom: 8px; color: #ddd; }
   button { width: 100%; padding: 12px 0; font-size: 16px; font-weight: 700; color: #fff; background-color: #bb86fc; border: none; border-radius: 6px; cursor: pointer; transition: background-color 0.3s ease, opacity 0.3s ease; user-select: none; margin-top: 10px;}
@@ -47,7 +47,14 @@
   <div id="result" class="result-box"></div>
   <div id="sequentialResult" class="result-box"></div>
 
-  <h3>2. Add Historical Game</h3>
+  <h3>2. Manage Historical Data</h3>
+  
+  <div class="btn-group">
+    <button id="startShoeBtn">Start New Shoe</button>
+    <button id="endShoeBtn" class="secondary-btn">End Current Shoe</button>
+  </div>
+
+  <h4 style="margin-top: 25px;">Add Game to Current Shoe</h4>
   <label for="playerHand">Player Hand (e.g., A-9)</label>
   <input type="text" id="playerHand" placeholder="e.g., A-9" />
   <label for="bankerHand">Banker Hand (e.g., K-7)</label>
@@ -59,23 +66,22 @@
     <option value="Banker">Banker</option>
     <option value="Tie">Tie</option>
   </select>
-  <button id="saveGameBtn">Save Historical Game</button>
-  <div id="saveResult" style="margin-top: 15px;"></div>
+  <button id="saveGameBtn">Save Game</button>
+  <div id="saveResult" style="margin-top: 15px; text-align: center;"></div>
 </div>
 
 <script>
   let sequence = [];
   const predictBtn = document.getElementById('predictBtn');
   const saveGameBtn = document.getElementById('saveGameBtn');
+  const startShoeBtn = document.getElementById('startShoeBtn');
+  const endShoeBtn = document.getElementById('endShoeBtn');
   const playerHandInput = document.getElementById('playerHand');
   const bankerHandInput = document.getElementById('bankerHand');
 
   function formatHandInput(inputElement) {
     let rawValue = inputElement.value.toUpperCase();
-    
-    // --- THIS IS THE ONLY LINE THAT CHANGED ---
     const validParts = rawValue.match(/(10|[1-9AKQJ])/g) || [];
-    
     const limitedParts = validParts.slice(0, 3);
     const formattedValue = limitedParts.join('-');
     inputElement.value = formattedValue;
@@ -99,14 +105,19 @@
     predictBtn.disabled = sequence.length < 10;
   }
   
-  async function handleApiRequest(button, url, payload, successCallback) {
+  async function handleApiRequest(button, url, payload, resultDivId, successCallback) {
       const originalText = button.textContent;
       button.disabled = true;
       button.textContent = 'Working...';
-      const resultDiv = document.getElementById('result');
-      const sequentialResultDiv = document.getElementById('sequentialResult');
+      const resultDiv = document.getElementById(resultDivId);
       resultDiv.innerHTML = '';
-      sequentialResultDiv.innerHTML = '';
+
+      // Clear prediction divs if it's not a prediction action
+      if (button.id !== 'predictBtn') {
+        document.getElementById('result').innerHTML = '';
+        document.getElementById('sequentialResult').innerHTML = '';
+      }
+
       try {
           const response = await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
           const data = await response.json();
@@ -122,9 +133,19 @@
   }
 
   predictBtn.addEventListener('click', () => {
-    handleApiRequest(predictBtn, '/predict_sequence', {outcomes: sequence}, (data) => {
-        const resultDiv = document.getElementById('result');
-        const sequentialResultDiv = document.getElementById('sequentialResult');
+    // Prediction has special handling for two result divs
+    const originalText = predictBtn.textContent;
+    predictBtn.disabled = true;
+    predictBtn.textContent = 'Working...';
+    const resultDiv = document.getElementById('result');
+    const sequentialResultDiv = document.getElementById('sequentialResult');
+    resultDiv.innerHTML = '';
+    sequentialResultDiv.innerHTML = '';
+
+    fetch('/predict_sequence', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({outcomes: sequence}) })
+      .then(res => res.json().then(data => ({ ok: res.ok, data })))
+      .then(({ok, data}) => {
+        if (!ok) throw new Error(data.error || 'Unknown error');
         const hist = data.historical_prediction;
         let histHtml = '<h4>Historical Prediction</h4>';
         if (hist.error) { histHtml += `<span class="error">${hist.error}</span>`; } else {
@@ -143,35 +164,47 @@
             if (seq.reason) seqHtml += `<em>${seq.reason}</em>`;
         }
         sequentialResultDiv.innerHTML = seqHtml;
-    });
+      })
+      .catch(err => {
+        resultDiv.innerHTML = `<span class="error">Error: ${err.message}</span>`;
+      })
+      .finally(() => {
+        predictBtn.disabled = false;
+        predictBtn.textContent = originalText;
+        updateSequenceDisplay();
+      });
   });
 
-  saveGameBtn.addEventListener('click', async () => {
-      const saveResultDiv = document.getElementById('saveResult');
-      saveResultDiv.innerHTML = '';
-      const originalText = saveGameBtn.textContent;
-      try {
-          const payload = { player_hand: playerHandInput.value, banker_hand: bankerHandInput.value, outcome: document.getElementById('outcome').value };
-          if (!payload.player_hand || !payload.banker_hand || !payload.outcome) {
-              saveResultDiv.innerHTML = '<span class="error">All fields are required.</span>';
-              return;
-          }
-          saveGameBtn.disabled = true;
-          saveGameBtn.textContent = 'Saving...';
-          const response = await fetch('/add_game', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-          const data = await response.json();
-          if (!response.ok) throw new Error(data.error || 'Unknown error');
+  saveGameBtn.addEventListener('click', () => {
+      const payload = { player_hand: playerHandInput.value, banker_hand: bankerHandInput.value, outcome: document.getElementById('outcome').value };
+      if (!payload.player_hand || !payload.banker_hand || !payload.outcome) {
+          document.getElementById('saveResult').innerHTML = '<span class="error">All fields are required.</span>';
+          return;
+      }
+      handleApiRequest(saveGameBtn, '/add_game', payload, 'saveResult', (data) => {
+          const saveResultDiv = document.getElementById('saveResult');
           saveResultDiv.innerHTML = `<span class="success">${data.message}</span>`;
           playerHandInput.value = '';
           bankerHandInput.value = '';
           document.getElementById('outcome').value = '';
           setTimeout(() => { saveResultDiv.innerHTML = ''; }, 3000);
-      } catch (err) {
-          saveResultDiv.innerHTML = `<span class="error">Error: ${err.message}</span>`;
-      } finally {
-          saveGameBtn.disabled = false;
-          saveGameBtn.textContent = originalText;
-      }
+      });
+  });
+
+  startShoeBtn.addEventListener('click', () => {
+    handleApiRequest(startShoeBtn, '/start_new_shoe', {}, 'saveResult', (data) => {
+        const saveResultDiv = document.getElementById('saveResult');
+        saveResultDiv.innerHTML = `<span class="success">${data.message}</span>`;
+        setTimeout(() => { saveResultDiv.innerHTML = ''; }, 3000);
+    });
+  });
+
+  endShoeBtn.addEventListener('click', () => {
+    handleApiRequest(endShoeBtn, '/end_current_shoe', {}, 'saveResult', (data) => {
+        const saveResultDiv = document.getElementById('saveResult');
+        saveResultDiv.innerHTML = `<span class="success">${data.message}</span>`;
+        setTimeout(() => { saveResultDiv.innerHTML = ''; }, 3000);
+    });
   });
 
   updateSequenceDisplay();
