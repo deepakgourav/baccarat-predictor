@@ -6,156 +6,208 @@
 <title>Baccarat Outcome Predictor</title>
 <style>
   body { background: #121212; color: #eee; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 40px 20px; margin: 0; }
-  .container { background: #1e1e1e; padding: 30px 40px; border-radius: 10px; box-shadow: 0 0 20px #2c2c2c; width: 400px; max-width: 90vw; }
-  h1 { margin-bottom: 24px; text-align: center; color: #f39c12; text-shadow: 0 0 5px #f39c12; }
+  .container { background: #1e1e1e; padding: 25px 35px; border-radius: 10px; box-shadow: 0 0 25px rgba(0,0,0,0.5); width: 420px; max-width: 90vw; }
+  h1 { margin-top: 0; margin-bottom: 24px; text-align: center; color: #bb86fc; text-shadow: 0 0 5px #bb86fc; }
+  h3 { color: #bb86fc; margin-top: 25px; border-top: 1px solid #444; padding-top: 25px; margin-bottom: 20px;}
+  h4 { color: #03dac6; margin-bottom: 10px; margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 5px; }
   label { display: block; font-weight: 600; margin-bottom: 8px; color: #ddd; }
-  button { width: 100%; padding: 12px 0; font-size: 18px; font-weight: 700; color: #fff; background-color: #f39c12; border: none; border-radius: 6px; cursor: pointer; transition: background-color 0.3s ease; user-select: none; margin-top: 10px;}
-  button:hover { background-color: #d78e0e; }
-  .btn-group button { width: 32%; margin-right: 2%; }
-  .btn-group { display: flex; justify-content: space-between; margin-top: 10px; }
-  #currentSequence, #result { margin-top: 20px; background: #2c2c2c; padding: 15px; border-radius: 8px; font-size: 15px; color: #ccc; word-wrap: break-word; }
-  .error { color: #e74c3c; font-weight: 600; }
-  hr { border: 1px solid #444; margin: 30px 0; }
+  button { width: 100%; padding: 12px 0; font-size: 16px; font-weight: 700; color: #fff; background-color: #bb86fc; border: none; border-radius: 6px; cursor: pointer; transition: background-color 0.3s ease, opacity 0.3s ease; user-select: none; margin-top: 10px;}
+  button:hover:not(:disabled) { background-color: #a362f7; }
+  button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
+  .btn-group { display: flex; justify-content: space-between; gap: 10px; margin-top: 10px; }
+  .btn-group button { margin-top: 0; }
+  .secondary-btn { background-color: #4a4a4a; }
+  .secondary-btn:hover:not(:disabled) { background-color: #5a5a5a; }
+  input, select { width: 100%; padding: 10px; background: #2c2c2c; border: 1px solid #444; color: #eee; border-radius: 5px; box-sizing: border-box; margin-bottom: 15px; }
+  #currentSequence { margin-top: 20px; background: #2c2c2c; padding: 15px; border-radius: 8px; font-size: 15px; color: #ccc; word-wrap: break-word; min-height: 24px; }
+  .result-box { margin-top: 15px; padding: 15px; border-radius: 8px; font-size: 15px; color: #ccc; word-wrap: break-word; line-height: 1.6; border: 1px solid #333; }
+  .result-box:empty { display: none; }
+  .error { color: #cf6679; font-weight: 600; }
+  .success { color: #03dac6; font-weight: 600; }
 </style>
 </head>
 <body>
 <div class="container">
-  <h1>Baccarat Outcome Predictor</h1>
+  <h1>Baccarat Predictor</h1>
 
-  <!-- Outcome adding buttons -->
-  <label>Add outcome:</label>
+  <label>1. Build Sequence:</label>
   <div class="btn-group">
     <button onclick="addOutcome('Player')">Player</button>
     <button onclick="addOutcome('Banker')">Banker</button>
     <button onclick="addOutcome('Tie')">Tie</button>
   </div>
+  <div class="btn-group">
+      <button onclick="undoLastOutcome()" class="secondary-btn">Undo</button>
+      <button onclick="clearSequence()" class="secondary-btn">Clear All</button>
+  </div>
 
-  <!-- Current sequence display -->
   <div id="currentSequence">Current sequence: (empty)</div>
+  <button id="predictBtn">Predict Next Outcome</button>
 
-  <button onclick="predict()">Predict Next Outcome</button>
-  <div id="result"></div>
+  <div id="result" class="result-box"></div>
+  <div id="sequentialResult" class="result-box"></div>
 
-  <hr>
-  <h3 style="margin-top: 0; color: #f39c12;">Add Historical Game Data</h3>
-  <label for="playerHand">Player Hand (e.g., A-9):</label>
+  <h3>2. Manage Historical Data</h3>
+  
+  <div class="btn-group">
+    <button id="startShoeBtn">Start New Shoe</button>
+    <button id="endShoeBtn" class="secondary-btn">End Current Shoe</button>
+  </div>
+
+  <h4 style="margin-top: 25px;">Add Game to Current Shoe</h4>
+  <label for="playerHand">Player Hand (e.g., A-9)</label>
   <input type="text" id="playerHand" placeholder="e.g., A-9" />
-
-  <label for="bankerHand">Banker Hand (e.g., K-7):</label>
+  <label for="bankerHand">Banker Hand (e.g., K-7)</label>
   <input type="text" id="bankerHand" placeholder="e.g., K-7" />
-
-  <label for="outcome">Outcome:</label>
+  <label for="outcome">Actual Outcome</label>
   <select id="outcome">
-    <option value="">Select Outcome</option>
+    <option value="" disabled selected>Select Outcome</option>
     <option value="Player">Player</option>
     <option value="Banker">Banker</option>
     <option value="Tie">Tie</option>
   </select>
-
-  <button id="saveGameBtn">Save Historical Game</button>
-  <div id="saveResult"></div>
+  <button id="saveGameBtn">Save Game</button>
+  <div id="saveResult" style="margin-top: 15px; text-align: center;"></div>
 </div>
 
 <script>
   let sequence = [];
+  const predictBtn = document.getElementById('predictBtn');
+  const saveGameBtn = document.getElementById('saveGameBtn');
+  const startShoeBtn = document.getElementById('startShoeBtn');
+  const endShoeBtn = document.getElementById('endShoeBtn');
+  const playerHandInput = document.getElementById('playerHand');
+  const bankerHandInput = document.getElementById('bankerHand');
 
-  function addOutcome(outcome) {
-    sequence.push(outcome);
+  function formatHandInput(inputElement) {
+    let rawValue = inputElement.value.toUpperCase();
+    const validParts = rawValue.match(/(10|[1-9AKQJ])/g) || [];
+    const limitedParts = validParts.slice(0, 3);
+    const formattedValue = limitedParts.join('-');
+    inputElement.value = formattedValue;
+  }
+  
+  playerHandInput.addEventListener('input', () => formatHandInput(playerHandInput));
+  bankerHandInput.addEventListener('input', () => formatHandInput(bankerHandInput));
+
+  function addOutcome(outcome) { sequence.push(outcome); updateSequenceDisplay(); }
+  function undoLastOutcome() { if (sequence.length > 0) { sequence.pop(); updateSequenceDisplay(); } }
+  function clearSequence() {
+    sequence = [];
     updateSequenceDisplay();
+    document.getElementById('result').innerHTML = '';
+    document.getElementById('sequentialResult').innerHTML = '';
   }
 
   function updateSequenceDisplay() {
-    document.getElementById('currentSequence').textContent = 'Current sequence: ' + (sequence.length ? sequence.join(', ') : '(empty)');
+    const displayDiv = document.getElementById('currentSequence');
+    displayDiv.textContent = sequence.length ? 'Current sequence: ' + sequence.join(', ') : 'Current sequence: (empty)';
+    predictBtn.disabled = sequence.length < 10;
+  }
+  
+  async function handleApiRequest(button, url, payload, resultDivId, successCallback) {
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = 'Working...';
+      const resultDiv = document.getElementById(resultDivId);
+      resultDiv.innerHTML = '';
+
+      // Clear prediction divs if it's not a prediction action
+      if (button.id !== 'predictBtn') {
+        document.getElementById('result').innerHTML = '';
+        document.getElementById('sequentialResult').innerHTML = '';
+      }
+
+      try {
+          const response = await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+          const data = await response.json();
+          if (!response.ok) throw new Error(data.error || 'Unknown server error');
+          successCallback(data);
+      } catch (err) {
+          resultDiv.innerHTML = `<span class="error">Error: ${err.message}</span>`;
+      } finally {
+          button.disabled = false;
+          button.textContent = originalText;
+          if (button.id === 'predictBtn') updateSequenceDisplay();
+      }
   }
 
-  async function predict() {
+  predictBtn.addEventListener('click', () => {
+    // Prediction has special handling for two result divs
+    const originalText = predictBtn.textContent;
+    predictBtn.disabled = true;
+    predictBtn.textContent = 'Working...';
     const resultDiv = document.getElementById('result');
-    resultDiv.textContent = '';
+    const sequentialResultDiv = document.getElementById('sequentialResult');
+    resultDiv.innerHTML = '';
+    sequentialResultDiv.innerHTML = '';
 
-    if (sequence.length < 10) {
-      resultDiv.innerHTML = '<span class="error">At least 10 outcomes are required for prediction.</span>';
-      return;
-    }
-
-    const last10 = sequence.slice(-10);
-
-    try {
-      const resp = await fetch('/predict_sequence', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ outcomes: last10 })
+    fetch('/predict_sequence', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({outcomes: sequence}) })
+      .then(res => res.json().then(data => ({ ok: res.ok, data })))
+      .then(({ok, data}) => {
+        if (!ok) throw new Error(data.error || 'Unknown error');
+        const hist = data.historical_prediction;
+        let histHtml = '<h4>Historical Prediction</h4>';
+        if (hist.error) { histHtml += `<span class="error">${hist.error}</span>`; } else {
+            histHtml += `<strong>Prediction:</strong> <span style="color: #bb86fc;">${hist.prediction}</span><br>`;
+            histHtml += `<strong>Confidence:</strong> ${hist.confidence}<br>`;
+            histHtml += `<strong>Based on:</strong> ${hist.based_on.replace(/_/g, ' ')}<br>`;
+            if (hist.matches_found) histHtml += `<strong>Matches found:</strong> ${hist.matches_found}`;
+        }
+        resultDiv.innerHTML = histHtml;
+        const seq = data.sequential_prediction;
+        let seqHtml = '<h4>Sequential Prediction</h4>';
+        if (seq.error) { seqHtml += `<span class="error">${seq.error}</span>`; } else {
+            seqHtml += `<strong>Prediction:</strong> <span style="color: #bb86fc;">${seq.prediction}</span><br>`;
+            seqHtml += `<strong>Confidence:</strong> ${seq.confidence}<br>`;
+            seqHtml += `<strong>Based on:</strong> ${seq.based_on.replace(/_/g, ' ')}<br>`;
+            if (seq.reason) seqHtml += `<em>${seq.reason}</em>`;
+        }
+        sequentialResultDiv.innerHTML = seqHtml;
+      })
+      .catch(err => {
+        resultDiv.innerHTML = `<span class="error">Error: ${err.message}</span>`;
+      })
+      .finally(() => {
+        predictBtn.disabled = false;
+        predictBtn.textContent = originalText;
+        updateSequenceDisplay();
       });
-
-      const data = await resp.json();
-
-      if (!resp.ok) {
-        resultDiv.innerHTML = `<span class="error">Error: ${data.error || 'Unknown error'}</span>`;
-        return;
-      }
-
-      let html = `<strong>Prediction:</strong> ${data.prediction} <br>`;
-      html += `<strong>Confidence:</strong> ${data.confidence} <br>`;
-      html += `<strong>Based on:</strong> ${data.based_on} <br>`;
-      if (data.based_on === 'pattern_match') {
-        html += `<strong>Matches found:</strong> ${data.matches_found} <br>`;
-        html += `<details><summary>Sample Matches</summary>`;
-        data.match_details.forEach(match => {
-          html += `<div style="margin-top:8px; font-family: monospace;">
-            Start index: ${match.start_index}<br>
-            Matched sequence: ${match.matched_sequence.join(', ')}<br>
-            Next outcome: ${match.next_outcome}<br>
-            Match type: ${match.match_type}<br>
-            Similarity: ${match.similarity}%
-          </div>`;
-        });
-        html += `</details>`;
-      } else if (data.reason) {
-        html += `<em>Reason: ${data.reason}</em>`;
-      }
-
-      resultDiv.innerHTML = html;
-    } catch (e) {
-      resultDiv.innerHTML = `<span class="error">Request failed. Please try again.</span>`;
-    }
-  }
-
-  document.getElementById('saveGameBtn').addEventListener('click', async () => {
-    const playerHand = document.getElementById('playerHand').value.trim();
-    const bankerHand = document.getElementById('bankerHand').value.trim();
-    const outcome = document.getElementById('outcome').value;
-    const saveResult = document.getElementById('saveResult');
-    saveResult.textContent = '';
-
-    if (!playerHand || !bankerHand || !outcome) {
-      saveResult.innerHTML = '<span class="error">All fields are required.</span>';
-      return;
-    }
-
-    const payload = {
-      player_hand: playerHand,
-      banker_hand: bankerHand,
-      outcome: outcome
-    };
-
-    try {
-      const resp = await fetch('/add_game', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      const data = await resp.json();
-
-      if (!resp.ok) {
-        saveResult.innerHTML = `<span class="error">Error: ${data.error || 'Unknown error'}</span>`;
-        return;
-      }
-
-      saveResult.innerHTML = `<span style="color: #2ecc71;">${data.message}</span>`;
-    } catch (e) {
-      saveResult.innerHTML = `<span class="error">Request failed. Please try again.</span>`;
-    }
   });
+
+  saveGameBtn.addEventListener('click', () => {
+      const payload = { player_hand: playerHandInput.value, banker_hand: bankerHandInput.value, outcome: document.getElementById('outcome').value };
+      if (!payload.player_hand || !payload.banker_hand || !payload.outcome) {
+          document.getElementById('saveResult').innerHTML = '<span class="error">All fields are required.</span>';
+          return;
+      }
+      handleApiRequest(saveGameBtn, '/add_game', payload, 'saveResult', (data) => {
+          const saveResultDiv = document.getElementById('saveResult');
+          saveResultDiv.innerHTML = `<span class="success">${data.message}</span>`;
+          playerHandInput.value = '';
+          bankerHandInput.value = '';
+          document.getElementById('outcome').value = '';
+          setTimeout(() => { saveResultDiv.innerHTML = ''; }, 3000);
+      });
+  });
+
+  startShoeBtn.addEventListener('click', () => {
+    handleApiRequest(startShoeBtn, '/start_new_shoe', {}, 'saveResult', (data) => {
+        const saveResultDiv = document.getElementById('saveResult');
+        saveResultDiv.innerHTML = `<span class="success">${data.message}</span>`;
+        setTimeout(() => { saveResultDiv.innerHTML = ''; }, 3000);
+    });
+  });
+
+  endShoeBtn.addEventListener('click', () => {
+    handleApiRequest(endShoeBtn, '/end_current_shoe', {}, 'saveResult', (data) => {
+        const saveResultDiv = document.getElementById('saveResult');
+        saveResultDiv.innerHTML = `<span class="success">${data.message}</span>`;
+        setTimeout(() => { saveResultDiv.innerHTML = ''; }, 3000);
+    });
+  });
+
+  updateSequenceDisplay();
 </script>
 </body>
 </html>

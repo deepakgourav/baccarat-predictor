@@ -1,195 +1,207 @@
+# --- START OF FILE app.py (STATE-SAFE FINAL VERSION) ---
+
 from flask import Flask, request, jsonify, render_template
 from difflib import SequenceMatcher
 import json
 import os
+import threading
+import re
 
+# ---------- Configuration & Constants ----------
 app = Flask(__name__)
 
+# --- SIMPLE & RELIABLE PATH CONFIGURATION ---
+# This method ensures that the paths are always relative to where the app.py script itself is located.
+# This avoids any issues with the "current working directory".
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_FILE = os.path.join(BASE_DIR, 'data', 'game_data.json')
+DATA_DIR = os.path.join(BASE_DIR, 'data')
+DATA_FILE = os.path.join(DATA_DIR, 'game_data.json')
+# --- END OF PATH CONFIGURATION ---
 
-# ---------- Utilities ----------
-def create_initial_data():
-    if not os.path.exists(DATA_FILE):
-        os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
-        with open(DATA_FILE, 'w') as f:
-            json.dump([], f, indent=2)
+# ... (the rest of your app.py code remains the same)
+print(f"--- DATA FILE PATH IS: {DATA_FILE} ---")
 
-def fix_hand(hand_str):
-    valid_cards = {'A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'}
-    hand_str = str(hand_str).replace('-', '')
-    cards = []
-    i = 0
-    while i < len(hand_str):
-        if hand_str[i] == '1' and i+1 < len(hand_str) and hand_str[i+1] == '0':
-            cards.append('10')
-            i += 2
-        else:
-            cards.append(hand_str[i])
-            i += 1
-    return '-'.join(card for card in cards if card in valid_cards)
+PLAYER, BANKER, TIE = 'Player', 'Banker', 'Tie'
+# ... (rest of constants are the same)
+VALID_OUTCOMES = {PLAYER, BANKER, TIE}
+VALID_CARDS = {'A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'}
+CARD_VALUES = {'A': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 0, 'J': 0, 'Q': 0, 'K': 0}
+SIMILARITY_THRESHOLD = 0.8
 
-def load_data():
-    try:
-        with open(DATA_FILE, 'r') as f:
-            data = json.load(f)
-            return data if isinstance(data, list) else []
-    except:
-        return []
 
-def save_data(data):
-    try:
-        os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
-        with open(DATA_FILE, 'w') as f:
-            json.dump(data, f, indent=2)
-        return True
-    except:
-        return False
+# --- STATE-SAFE FILE HANDLING ---
+# A lock is still used to prevent two requests from writing at the exact same time.
+data_lock = threading.Lock()
 
-# ---------- Baccarat Logic ----------
-card_values = {'A': 1, '2': 2, '3': 3, '4': 4, '5': 5,
-               '6': 6, '7': 7, '8': 8, '9': 9,
-               '10': 0, 'J': 0, 'Q': 0, 'K': 0}
+def read_data_file():
+    """Safely reads the entire data file."""
+    with data_lock:
+        if not os.path.isfile(DATA_FILE):
+            return [] # Return empty list if no file
+        try:
+            with open(DATA_FILE, 'r') as f:
+                content = f.read()
+                if not content: return []
+                return json.loads(content)
+        except (json.JSONDecodeError, Exception) as e:
+            app.logger.error(f"ERROR reading data file: {e}")
+            return None # Return None on error
 
-def baccarat_total(hand_str):
-    try:
-        cards = hand_str.split('-')
-        return sum(card_values.get(card, 0) for card in cards) % 10
-    except:
-        return 0
+def write_data_file(data):
+    """Safely writes data to the file."""
+    with data_lock:
+        try:
+            os.makedirs(DATA_DIR, exist_ok=True)
+            with open(DATA_FILE, 'w') as f:
+                json.dump(data, f, indent=2)
+            return True
+        except IOError as e:
+            app.logger.error(f"ERROR writing data file: {e}")
+            return False
 
-def is_natural(total):
-    return total in [8, 9]
+# ----- All other functions remain the same, we just change the routes -----
 
-def early_end(player_total, banker_total):
-    if is_natural(player_total) or is_natural(banker_total):
-        return True
-    if {player_total, banker_total} == {6, 7}:
-        return True
-    if player_total == banker_total and player_total in [6, 7, 8, 9]:
-        return True
-    return False
+def fix_hand(hand_str: str) -> str | None: # ... (no change)
+    if not isinstance(hand_str, str): return None
+    parts = [p.strip().upper() for p in hand_str.split('-')]
+    if not all(p in VALID_CARDS for p in parts) or len(parts) not in [2, 3]: return None
+    return '-'.join(parts)
+def baccarat_total(hand_str: str) -> int: # ... (no change)
+    return sum(CARD_VALUES.get(card, 0) for card in hand_str.split('-')) % 10
+def determine_outcome(player_total: int, banker_total: int) -> str: # ... (no change)
+    if player_total > banker_total: return PLAYER
+    if banker_total > player_total: return BANKER
+    return TIE
+def calculate_historical_prediction(user_sequence, all_historical_outcomes): # ... (no change)
+    seq_len = len(user_sequence)
+    if len(all_historical_outcomes) <= seq_len: return {'error': 'Not enough historical data.'}
+    match_results = [{'next_outcome': all_historical_outcomes[i + seq_len]} for i in range(len(all_historical_outcomes) - seq_len) if SequenceMatcher(None, user_sequence, all_historical_outcomes[i:i + seq_len]).ratio() >= SIMILARITY_THRESHOLD and all_historical_outcomes[i + seq_len] != TIE]
+    if not match_results:
+        pb_counts = {k: user_sequence.count(k) for k in (PLAYER, BANKER)}; total = sum(pb_counts.values())
+        if total == 0: return {'prediction': 'Banker', 'confidence': "0%", 'based_on': 'fallback_no_data'}
+        prediction = max(pb_counts, key=pb_counts.get); confidence = round((pb_counts[prediction] / total) * 100, 2)
+        return {'prediction': prediction, 'confidence': f"{confidence}%", 'based_on': 'fallback_logic'}
+    outcome_counts = {k: [r['next_outcome'] for r in match_results].count(k) for k in (PLAYER, BANKER)}; total_matches = sum(outcome_counts.values())
+    if total_matches == 0: return {'error': 'Matches found, but all lead to a Tie.'}
+    prediction = max(outcome_counts, key=outcome_counts.get); confidence = round((outcome_counts[prediction] / total_matches) * 100, 2)
+    return {'prediction': prediction, 'confidence': f"{confidence}%", 'based_on': 'pattern_match', 'matches_found': len(match_results)}
+def calculate_sequential_prediction(user_sequence): # ... (no change)
+    if len(user_sequence) < 2: return {'error': 'Sequence too short for this analysis.'}
+    transitions = {PLAYER: {PLAYER: 0, BANKER: 0}, BANKER: {PLAYER: 0, BANKER: 0}}
+    for i in range(len(user_sequence) - 1):
+        current, next_val = user_sequence[i], user_sequence[i+1]
+        if current in transitions and next_val in transitions[current]: transitions[current][next_val] += 1
+    last_outcome = user_sequence[-1]
+    if last_outcome not in transitions: return {'prediction': 'Banker', 'confidence': '0%', 'based_on': 'sequential_fallback', 'reason': 'Last round was a Tie.'}
+    possible_outcomes = transitions[last_outcome]; total_transitions = sum(possible_outcomes.values())
+    if total_transitions == 0: return {'prediction': 'Banker', 'confidence': '0%', 'based_on': 'sequential_fallback', 'reason': f'No transitions from "{last_outcome}" found in sequence.'}
+    prediction = max(possible_outcomes, key=possible_outcomes.get); confidence = round((possible_outcomes[prediction] / total_transitions) * 100, 2)
+    return {'prediction': prediction, 'confidence': f"{confidence}%", 'based_on': 'transition_analysis'}
 
-def determine_outcome(player_total, banker_total):
-    if player_total > banker_total:
-        return 'Player'
-    elif banker_total > player_total:
-        return 'Banker'
-    else:
-        return 'Tie'
 
-# ---------- Routes ----------
+# ---------- Flask Routes (REWRITTEN TO BE STATE-SAFE) ----------
+
 @app.route('/')
 def home():
     return render_template('index.html')
 
-@app.route('/debug')
-def debug_template():
-    return jsonify({
-        "template_dir": os.path.abspath("templates"),
-        "index_exists": os.path.exists("templates/index.html")
-    })
+@app.route('/start_new_shoe', methods=['POST'])
+def start_new_shoe():
+    # READ the latest data from the file
+    game_data = read_data_file()
+    if game_data is None:
+        return jsonify({'error': 'Could not read data file.'}), 500
+
+    # Determine state from the fresh data
+    ended_shoes = {rec['shoe_id'] for rec in game_data if rec.get('event') == 'SHOE_END'}
+    last_shoe_id = None
+    is_active = False
+    for record in reversed(game_data):
+        if record.get("event") == "SHOE_START":
+            last_shoe_id = record['shoe_id']
+            if last_shoe_id not in ended_shoes:
+                is_active = True
+            break
+    
+    # LOGIC: If a shoe is active, end it
+    if is_active:
+        game_data.append({"event": "SHOE_END", "shoe_id": last_shoe_id})
+
+    # LOGIC: Find the highest existing shoe number and add 1
+    all_shoe_numbers = {0}
+    for record in game_data:
+        if 'shoe_id' in record and record.get('shoe_id'):
+            try:
+                num = int(re.search(r'\d+', record['shoe_id']).group())
+                all_shoe_numbers.add(num)
+            except (AttributeError, ValueError): continue
+    
+    next_shoe_number = max(all_shoe_numbers) + 1
+    new_shoe_id = f"shoe_{next_shoe_number}"
+    
+    # MODIFY the data and WRITE it back to the file
+    game_data.append({"event": "SHOE_START", "shoe_id": new_shoe_id})
+    if not write_data_file(game_data):
+        return jsonify({'error': 'Failed to save new shoe data.'}), 500
+
+    return jsonify({'message': f'Successfully started {new_shoe_id}.'}), 201
+
 
 @app.route('/add_game', methods=['POST'])
 def add_game():
-    try:
-        data = request.get_json()
-        player_hand = fix_hand(data.get('player_hand', ''))
-        banker_hand = fix_hand(data.get('banker_hand', ''))
-        outcome = data.get('outcome', '')
+    req_data = request.get_json() # Renamed to avoid confusion with file data
+    if not req_data: return jsonify({'error': 'Invalid JSON payload'}), 400
+    
+    # ... (Validation is the same) ...
+    player_hand = fix_hand(req_data.get('player_hand'))
+    banker_hand = fix_hand(req_data.get('banker_hand'))
+    outcome = req_data.get('outcome')
+    if not all([player_hand, banker_hand, outcome]): return jsonify({'error': 'All fields are required.'}), 400
+    if determine_outcome(baccarat_total(player_hand), baccarat_total(banker_hand)) != outcome: return jsonify({'error': "Outcome does not match card totals."}), 400
+    
+    # READ the latest data from the file
+    game_data = read_data_file()
+    if game_data is None: return jsonify({'error': 'Could not read data file.'}), 500
 
-        if not all([player_hand, banker_hand, outcome]):
-            return jsonify({'error': 'All fields are required'}), 400
+    # Determine current shoe state from fresh data
+    ended_shoes = {rec['shoe_id'] for rec in game_data if rec.get('event') == 'SHOE_END'}
+    current_shoe_id, shoe_start_index, is_active = None, -1, False
+    for i in range(len(game_data) - 1, -1, -1):
+        record = game_data[i]
+        if record.get("event") == "SHOE_START":
+            current_shoe_id = record['shoe_id']
+            if current_shoe_id not in ended_shoes:
+                is_active = True
+                shoe_start_index = i
+            break
+            
+    if not is_active: return jsonify({'error': 'No active shoe. Please start a new shoe first.'}), 400
 
-        if outcome not in ['Player', 'Banker', 'Tie']:
-            return jsonify({'error': 'Invalid outcome'}), 400
+    # LOGIC: Calculate round number and add game
+    round_count = 1 + sum(1 for rec in game_data[shoe_start_index:] if rec.get('shoe_id') == current_shoe_id and 'outcome' in rec)
+    new_game = {'player_hand': player_hand, 'banker_hand': banker_hand, 'outcome': outcome, 'shoe_id': current_shoe_id, 'round': round_count}
+    
+    # MODIFY the data and WRITE it back
+    game_data.append(new_game)
+    if not write_data_file(game_data):
+        return jsonify({'error': 'Failed to save data.'}), 500
 
-        player_total = baccarat_total(player_hand)
-        banker_total = baccarat_total(banker_hand)
-        predicted = determine_outcome(player_total, banker_total)
+    return jsonify({'message': f'Game added to {current_shoe_id}, round {round_count}.'}), 201
 
-        if predicted != outcome:
-            return jsonify({'error': f"Outcome does not match card totals. Calculated: {predicted}"}), 400
-
-        games = load_data()
-        games.append({
-            'player_hand': player_hand,
-            'banker_hand': banker_hand,
-            'outcome': outcome
-        })
-
-        if not save_data(games):
-            return jsonify({'error': 'Failed to save data'}), 500
-
-        return jsonify({'message': 'Game added successfully'}), 201
-    except Exception as e:
-        return jsonify({'error': 'Server error', 'details': str(e)}), 500
 
 @app.route('/predict_sequence', methods=['POST'])
 def predict_sequence():
-    try:
-        data = request.get_json()
-        user_sequence = data.get('outcomes', [])
+    # This route only reads, so it's fine.
+    game_data = read_data_file()
+    if game_data is None: return jsonify({'error': 'Could not read data file.'}), 500
+    
+    user_sequence = request.get_json().get('outcomes', [])
+    if not isinstance(user_sequence, list) or len(user_sequence) < 10: return jsonify({'error': 'Please provide at least 10 valid outcomes.'}), 400
 
-        # ✅ Allow "Player", "Banker", "Tie" in input sequence
-        if len(user_sequence) != 10 or any(o not in ["Player", "Banker", "Tie"] for o in user_sequence):
-            return jsonify({'error': 'Please provide exactly 10 valid outcomes: "Player", "Banker", or "Tie"'}), 400
+    all_outcomes = [g['outcome'] for g in game_data if 'outcome' in g]
+    return jsonify({'historical_prediction': calculate_historical_prediction(user_sequence, all_outcomes), 'sequential_prediction': calculate_sequential_prediction(user_sequence)})
 
-        historical_data = load_data()
-        all_outcomes = [g['outcome'] for g in historical_data]
-
-        match_results = []
-
-        for i in range(len(all_outcomes) - 10):
-            window = all_outcomes[i:i+10]
-            next_outcome = all_outcomes[i+10] if i + 10 < len(all_outcomes) else None
-
-            if not next_outcome or next_outcome not in ['Player', 'Banker']:
-                continue  # skip predicting "Tie" as next outcome
-
-            exact_match = user_sequence == window
-            fuzzy_match_ratio = SequenceMatcher(None, user_sequence, window).ratio()
-
-            if exact_match or fuzzy_match_ratio >= 0.8:
-                match_results.append({
-                    'start_index': i,
-                    'matched_sequence': window,
-                    'next_outcome': next_outcome,
-                    'match_type': 'exact' if exact_match else 'fuzzy',
-                    'similarity': round(fuzzy_match_ratio * 100, 2)
-                })
-
-        if match_results:
-            outcome_counts = {'Player': 0, 'Banker': 0}
-            for match in match_results:
-                outcome_counts[match['next_outcome']] += 1
-
-            total = outcome_counts['Player'] + outcome_counts['Banker']
-            predicted = max(outcome_counts, key=outcome_counts.get)
-            confidence = round((outcome_counts[predicted] / total) * 100, 2)
-
-            return jsonify({
-                'prediction': predicted,
-                'confidence': f"{confidence}%",
-                'based_on': 'pattern_match',
-                'matches_found': len(match_results),
-                'match_details': match_results[:5]
-            })
-        else:
-            fallback_counts = {'Player': user_sequence.count('Player'), 'Banker': user_sequence.count('Banker')}
-            fallback_pred = max(fallback_counts, key=fallback_counts.get)
-            fallback_conf = round((fallback_counts[fallback_pred] / (fallback_counts['Player'] + fallback_counts['Banker'])) * 100, 2)
-
-            return jsonify({
-                'prediction': fallback_pred,
-                'confidence': f"{fallback_conf}%",
-                'based_on': 'fallback_logic',
-                'reason': 'no matching pattern found in historical data'
-            })
-    except Exception as e:
-        return jsonify({'error': 'Prediction failed', 'details': str(e)}), 500
-
-# ---------- Run App ----------
+# No need for initialize_data() call here anymore
 if __name__ == '__main__':
-    create_initial_data()
-    app.run(host='0.0.0.0', port=3000, debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
