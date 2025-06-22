@@ -54,6 +54,14 @@
     <button id="endShoeBtn" class="secondary-btn">End Current Shoe</button>
   </div>
 
+<!-- In index.html, find the other result boxes and add this one above them -->
+
+<div id="bestFitResult" class="result-box"></div>
+<div id="shoeResult" class="result-box"></div>
+<div id="result" class="result-box"></div>
+<div id="sequentialResult" class="result-box"></div>
+
+
   <h4 style="margin-top: 25px;">Add Game to Current Shoe</h4>
   <label for="playerHand">Player Hand (e.g., A-9)</label>
   <input type="text" id="playerHand" placeholder="e.g., A-9" />
@@ -131,83 +139,61 @@
           if (button.id === 'predictBtn') updateSequenceDisplay();
       }
   }
+// In index.html, find the predictBtn.addEventListener(...) block and replace the whole thing with this new version.
 
-  predictBtn.addEventListener('click', () => {
-    // Prediction has special handling for two result divs
+predictBtn.addEventListener('click', () => {
     const originalText = predictBtn.textContent;
     predictBtn.disabled = true;
     predictBtn.textContent = 'Working...';
+    
+    // Get all result divs
+    const bestFitResultDiv = document.getElementById('bestFitResult');
+    const shoeResultDiv = document.getElementById('shoeResult');
     const resultDiv = document.getElementById('result');
     const sequentialResultDiv = document.getElementById('sequentialResult');
+    
+    // Clear all old results
+    bestFitResultDiv.innerHTML = '';
+    shoeResultDiv.innerHTML = '';
     resultDiv.innerHTML = '';
     sequentialResultDiv.innerHTML = '';
 
     fetch('/predict_sequence', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({outcomes: sequence}) })
-      .then(res => res.json().then(data => ({ ok: res.ok, data })))
-      .then(({ok, data}) => {
+    .then(res => res.json().then(data => ({ ok: res.ok, data })))
+    .then(({ok, data}) => {
         if (!ok) throw new Error(data.error || 'Unknown error');
-        const hist = data.historical_prediction;
-        let histHtml = '<h4>Historical Prediction</h4>';
-        if (hist.error) { histHtml += `<span class="error">${hist.error}</span>`; } else {
-            histHtml += `<strong>Prediction:</strong> <span style="color: #bb86fc;">${hist.prediction}</span><br>`;
-            histHtml += `<strong>Confidence:</strong> ${hist.confidence}<br>`;
-            histHtml += `<strong>Based on:</strong> ${hist.based_on.replace(/_/g, ' ')}<br>`;
-            if (hist.matches_found) histHtml += `<strong>Matches found:</strong> ${hist.matches_found}`;
-        }
-        resultDiv.innerHTML = histHtml;
-        const seq = data.sequential_prediction;
-        let seqHtml = '<h4>Sequential Prediction</h4>';
-        if (seq.error) { seqHtml += `<span class="error">${seq.error}</span>`; } else {
-            seqHtml += `<strong>Prediction:</strong> <span style="color: #bb86fc;">${seq.prediction}</span><br>`;
-            seqHtml += `<strong>Confidence:</strong> ${seq.confidence}<br>`;
-            seqHtml += `<strong>Based on:</strong> ${seq.based_on.replace(/_/g, ' ')}<br>`;
-            if (seq.reason) seqHtml += `<em>${seq.reason}</em>`;
-        }
-        sequentialResultDiv.innerHTML = seqHtml;
-      })
-      .catch(err => {
-        resultDiv.innerHTML = `<span class="error">Error: ${err.message}</span>`;
-      })
-      .finally(() => {
+        
+        // Helper function to build the HTML for a prediction box
+        const buildPredictionHtml = (title, predictionData, color) => {
+            let html = `<h4>${title}</h4>`;
+            if (predictionData.error) {
+                html += `<span class="error">${predictionData.error}</span>`;
+            } else {
+                html += `<strong>Prediction:</strong> <span style="color: ${color}; font-weight: bold;">${predictionData.prediction}</span><br>`;
+                html += `<strong>Confidence:</strong> ${predictionData.confidence}<br>`;
+                html += `<strong>Based on:</strong> ${predictionData.based_on.replace(/_/g, ' ')}<br>`;
+                if (predictionData.matches_found) html += `<strong>Matches found:</strong> ${predictionData.matches_found}`;
+            }
+            return html;
+        };
+
+        // Populate all four prediction boxes
+        bestFitResultDiv.innerHTML = buildPredictionHtml('Best Fit Shoe Prediction (Expert)', data.best_fit_shoe_prediction, '#ffca28'); // Yellow
+        shoeResultDiv.innerHTML = buildPredictionHtml('Current Shoe Prediction (Relevant)', data.current_shoe_prediction, '#03dac6'); // Teal
+        resultDiv.innerHTML = buildPredictionHtml('Overall Historical Prediction (General)', data.historical_prediction, '#bb86fc'); // Purple
+        sequentialResultDiv.innerHTML = buildPredictionHtml('Simple Sequential Prediction (Basic)', data.sequential_prediction, '#bb86fc'); // Purple
+
+    })
+    .catch(err => {
+        bestFitResultDiv.innerHTML = `<span class="error">Error: ${err.message}</span>`;
+    })
+    .finally(() => {
         predictBtn.disabled = false;
         predictBtn.textContent = originalText;
         updateSequenceDisplay();
-      });
-  });
-
-  saveGameBtn.addEventListener('click', () => {
-      const payload = { player_hand: playerHandInput.value, banker_hand: bankerHandInput.value, outcome: document.getElementById('outcome').value };
-      if (!payload.player_hand || !payload.banker_hand || !payload.outcome) {
-          document.getElementById('saveResult').innerHTML = '<span class="error">All fields are required.</span>';
-          return;
-      }
-      handleApiRequest(saveGameBtn, '/add_game', payload, 'saveResult', (data) => {
-          const saveResultDiv = document.getElementById('saveResult');
-          saveResultDiv.innerHTML = `<span class="success">${data.message}</span>`;
-          playerHandInput.value = '';
-          bankerHandInput.value = '';
-          document.getElementById('outcome').value = '';
-          setTimeout(() => { saveResultDiv.innerHTML = ''; }, 3000);
-      });
-  });
-
-  startShoeBtn.addEventListener('click', () => {
-    handleApiRequest(startShoeBtn, '/start_new_shoe', {}, 'saveResult', (data) => {
-        const saveResultDiv = document.getElementById('saveResult');
-        saveResultDiv.innerHTML = `<span class="success">${data.message}</span>`;
-        setTimeout(() => { saveResultDiv.innerHTML = ''; }, 3000);
     });
-  });
-
-  endShoeBtn.addEventListener('click', () => {
-    handleApiRequest(endShoeBtn, '/end_current_shoe', {}, 'saveResult', (data) => {
-        const saveResultDiv = document.getElementById('saveResult');
-        saveResultDiv.innerHTML = `<span class="success">${data.message}</span>`;
-        setTimeout(() => { saveResultDiv.innerHTML = ''; }, 3000);
-    });
-  });
-
-  updateSequenceDisplay();
+});
+  
 </script>
 </body>
 </html>
