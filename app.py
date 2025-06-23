@@ -94,6 +94,56 @@ def determine_outcome(player_total: int, banker_total: int) -> str:
 # --- Prediction Logic Functions ---
 
 def calculate_historical_prediction(user_sequence, all_historical_outcomes):
+    # --- REPLACE your old 'calculate_historical_prediction' with this new, smarter version ---
+
+    # --- NEW STREAK-BREAKING LOGIC ---
+    if len(user_sequence) >= 3:
+        last_three = user_sequence[-3:]
+        # Check if the last 3 outcomes are the same (and not a Tie)
+        if last_three[0] == last_three[1] == last_three[2] and last_three[0] != TIE:
+            streak_outcome = last_three[0]
+            opposite_outcome = BANKER if streak_outcome == PLAYER else PLAYER
+            
+            # Now, search all of history for this 3-in-a-row pattern
+            streak_continues = 0
+            streak_breaks = 0
+            for i in range(len(all_historical_outcomes) - 3):
+                if all_historical_outcomes[i:i+3] == last_three:
+                    next_outcome = all_historical_outcomes[i+3]
+                    if next_outcome == streak_outcome:
+                        streak_continues += 1
+                    elif next_outcome == opposite_outcome:
+                        streak_breaks += 1
+            
+            total_events = streak_continues + streak_breaks
+            if total_events > 5: # Only use this logic if we have a decent sample size
+                if streak_breaks > streak_continues:
+                    prediction = opposite_outcome
+                    confidence = round((streak_breaks / total_events) * 100, 2)
+                    return {
+                        'prediction': prediction, 
+                        'confidence': f"{confidence}%",
+                        'based_on': f"streak_break_analysis (after 3x {streak_outcome})",
+                        'matches_found': total_events
+                    }
+    # --- END OF NEW LOGIC ---
+
+    # If the streak logic doesn't apply, run the original pattern matching
+    seq_len = len(user_sequence)
+    if len(all_historical_outcomes) <= seq_len: return {'error': 'Not enough historical data.'}
+    
+    match_results = [{'next_outcome': all_historical_outcomes[i + seq_len]} for i in range(len(all_historical_outcomes) - seq_len) if SequenceMatcher(None, user_sequence, all_historical_outcomes[i:i + seq_len]).ratio() >= SIMILARITY_THRESHOLD and all_historical_outcomes[i + seq_len] != TIE]
+    
+    if not match_results:
+        pb_counts = {k: user_sequence.count(k) for k in (PLAYER, BANKER)}; total = sum(pb_counts.values())
+        if total == 0: return {'prediction': 'Banker', 'confidence': "0%", 'based_on': 'fallback_no_data'}
+        prediction = max(pb_counts, key=pb_counts.get); confidence = round((pb_counts[prediction] / total) * 100, 2)
+        return {'prediction': prediction, 'confidence': f"{confidence}%", 'based_on': 'fallback_logic'}
+        
+    outcome_counts = {k: [r['next_outcome'] for r in match_results].count(k) for k in (PLAYER, BANKER)}; total_matches = sum(outcome_counts.values())
+    if total_matches == 0: return {'error': 'Matches found, but all lead to a Tie.'}
+    prediction = max(outcome_counts, key=outcome_counts.get); confidence = round((outcome_counts[prediction] / total_matches) * 100, 2)
+    return {'prediction': prediction, 'confidence': f"{confidence}%", 'based_on': 'pattern_match', 'matches_found': len(match_results)}
     seq_len = len(user_sequence)
     if len(all_historical_outcomes) <= seq_len: return {'error': 'Not enough historical data.'}
     match_results = [{'next_outcome': all_historical_outcomes[i + seq_len]} for i in range(len(all_historical_outcomes) - seq_len) if SequenceMatcher(None, user_sequence, all_historical_outcomes[i:i + seq_len]).ratio() >= SIMILARITY_THRESHOLD and all_historical_outcomes[i + seq_len] != TIE]
