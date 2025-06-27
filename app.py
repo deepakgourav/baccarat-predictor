@@ -9,12 +9,9 @@ import re
 app = Flask(__name__)
 
 # --- SIMPLE & RELIABLE PATH CONFIGURATION ---
-# This method ensures that the paths are always relative to where the app.py script itself is located.
-# This avoids any issues with the "current working directory".
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, 'data')
 DATA_FILE = os.path.join(DATA_DIR, 'game_data.json')
-# --- END OF PATH CONFIGURATION ---
 
 print(f"--- DATA FILE PATH IS: {DATA_FILE} ---")
 
@@ -26,11 +23,12 @@ SIMILARITY_THRESHOLD = 0.9
 
 data_lock = threading.Lock()
 
-# --- Core Data Functions ---
+# --- Core Data Functions (State-Safe) ---
 
 def read_data_file():
     """Safely reads the entire data file."""
     with data_lock:
+        os.makedirs(DATA_DIR, exist_ok=True)
         if not os.path.isfile(DATA_FILE):
             return []
         try:
@@ -54,27 +52,6 @@ def write_data_file(data):
             app.logger.error(f"ERROR writing data file: {e}")
             return False
 
-def get_current_shoe_state(game_data):
-    """
-    Scans the provided data to find the most recent shoe and determine if it's active.
-    Returns (last_shoe_id, is_active, last_start_index)
-    """
-    last_shoe_id = None
-    last_start_index = -1
-    ended_shoes = {rec['shoe_id'] for rec in game_data if rec.get('event') == 'SHOE_END'}
-
-    for i in range(len(game_data) - 1, -1, -1):
-        record = game_data[i]
-        if record.get("event") == "SHOE_START":
-            last_shoe_id = record['shoe_id']
-            last_start_index = i
-            break
-            
-    if last_shoe_id and last_shoe_id not in ended_shoes:
-        return last_shoe_id, True, last_start_index
-    else:
-        return last_shoe_id, False, last_start_index
-
 # --- Helper Functions ---
 
 def fix_hand(hand_str: str) -> str | None:
@@ -94,56 +71,23 @@ def determine_outcome(player_total: int, banker_total: int) -> str:
 # --- Prediction Logic Functions ---
 
 def calculate_historical_prediction(user_sequence, all_historical_outcomes):
-    # --- REPLACE your old 'calculate_historical_prediction' with this new, smarter version ---
-
-    # --- NEW STREAK-BREAKING LOGIC ---
     if len(user_sequence) >= 3:
         last_three = user_sequence[-3:]
-        # Check if the last 3 outcomes are the same (and not a Tie)
         if last_three[0] == last_three[1] == last_three[2] and last_three[0] != TIE:
             streak_outcome = last_three[0]
             opposite_outcome = BANKER if streak_outcome == PLAYER else PLAYER
-            
-            # Now, search all of history for this 3-in-a-row pattern
-            streak_continues = 0
-            streak_breaks = 0
+            streak_continues, streak_breaks = 0, 0
             for i in range(len(all_historical_outcomes) - 3):
                 if all_historical_outcomes[i:i+3] == last_three:
                     next_outcome = all_historical_outcomes[i+3]
-                    if next_outcome == streak_outcome:
-                        streak_continues += 1
-                    elif next_outcome == opposite_outcome:
-                        streak_breaks += 1
-            
+                    if next_outcome == streak_outcome: streak_continues += 1
+                    elif next_outcome == opposite_outcome: streak_breaks += 1
             total_events = streak_continues + streak_breaks
-            if total_events > 5: # Only use this logic if we have a decent sample size
+            if total_events > 5:
                 if streak_breaks > streak_continues:
-                    prediction = opposite_outcome
-                    confidence = round((streak_breaks / total_events) * 100, 2)
-                    return {
-                        'prediction': prediction, 
-                        'confidence': f"{confidence}%",
-                        'based_on': f"streak_break_analysis (after 3x {streak_outcome})",
-                        'matches_found': total_events
-                    }
-    # --- END OF NEW LOGIC ---
-
-    # If the streak logic doesn't apply, run the original pattern matching
-    seq_len = len(user_sequence)
-    if len(all_historical_outcomes) <= seq_len: return {'error': 'Not enough historical data.'}
+                    prediction, confidence = opposite_outcome, round((streak_breaks / total_events) * 100, 2)
+                    return {'prediction': prediction, 'confidence': f"{confidence}%", 'based_on': f"streak_break_analysis (after 3x {streak_outcome})", 'matches_found': total_events}
     
-    match_results = [{'next_outcome': all_historical_outcomes[i + seq_len]} for i in range(len(all_historical_outcomes) - seq_len) if SequenceMatcher(None, user_sequence, all_historical_outcomes[i:i + seq_len]).ratio() >= SIMILARITY_THRESHOLD and all_historical_outcomes[i + seq_len] != TIE]
-    
-    if not match_results:
-        pb_counts = {k: user_sequence.count(k) for k in (PLAYER, BANKER)}; total = sum(pb_counts.values())
-        if total == 0: return {'prediction': 'Banker', 'confidence': "0%", 'based_on': 'fallback_no_data'}
-        prediction = max(pb_counts, key=pb_counts.get); confidence = round((pb_counts[prediction] / total) * 100, 2)
-        return {'prediction': prediction, 'confidence': f"{confidence}%", 'based_on': 'fallback_logic'}
-        
-    outcome_counts = {k: [r['next_outcome'] for r in match_results].count(k) for k in (PLAYER, BANKER)}; total_matches = sum(outcome_counts.values())
-    if total_matches == 0: return {'error': 'Matches found, but all lead to a Tie.'}
-    prediction = max(outcome_counts, key=outcome_counts.get); confidence = round((outcome_counts[prediction] / total_matches) * 100, 2)
-    return {'prediction': prediction, 'confidence': f"{confidence}%", 'based_on': 'pattern_match', 'matches_found': len(match_results)}
     seq_len = len(user_sequence)
     if len(all_historical_outcomes) <= seq_len: return {'error': 'Not enough historical data.'}
     match_results = [{'next_outcome': all_historical_outcomes[i + seq_len]} for i in range(len(all_historical_outcomes) - seq_len) if SequenceMatcher(None, user_sequence, all_historical_outcomes[i:i + seq_len]).ratio() >= SIMILARITY_THRESHOLD and all_historical_outcomes[i + seq_len] != TIE]
@@ -157,73 +101,77 @@ def calculate_historical_prediction(user_sequence, all_historical_outcomes):
     prediction = max(outcome_counts, key=outcome_counts.get); confidence = round((outcome_counts[prediction] / total_matches) * 100, 2)
     return {'prediction': prediction, 'confidence': f"{confidence}%", 'based_on': 'pattern_match', 'matches_found': len(match_results)}
 
-def calculate_sequential_prediction(user_sequence):
-    if len(user_sequence) < 2: return {'error': 'Sequence too short for this analysis.'}
-    transitions = {PLAYER: {PLAYER: 0, BANKER: 0}, BANKER: {PLAYER: 0, BANKER: 0}}
-    for i in range(len(user_sequence) - 1):
-        current, next_val = user_sequence[i], user_sequence[i+1]
-        if current in transitions and next_val in transitions[current]: transitions[current][next_val] += 1
-    last_outcome = user_sequence[-1]
-    if last_outcome not in transitions: return {'prediction': 'Banker', 'confidence': '0%', 'based_on': 'sequential_fallback', 'reason': 'Last round was a Tie.'}
-    possible_outcomes = transitions[last_outcome]; total_transitions = sum(possible_outcomes.values())
-    if total_transitions == 0: return {'prediction': 'Banker', 'confidence': '0%', 'based_on': 'sequential_fallback', 'reason': f'No transitions from "{last_outcome}" found in sequence.'}
-    prediction = max(possible_outcomes, key=possible_outcomes.get); confidence = round((possible_outcomes[prediction] / total_transitions) * 100, 2)
-    return {'prediction': prediction, 'confidence': f"{confidence}%", 'based_on': 'transition_analysis'}
-
-# --- REPLACE THE 'calculate_current_shoe_prediction' FUNCTION WITH THIS ---
+# --- REPLACE 'calculate_current_shoe_prediction' WITH THIS NEW, SMARTER VERSION ---
 
 def calculate_current_shoe_prediction(user_sequence):
     """
-    Looks for similar patterns within the provided sequence by adaptively
-    reducing the pattern length until a match is found.
+    Looks for complex patterns first, and if none are found, falls back
+    to a simpler transition analysis for the current shoe.
     """
-    if len(user_sequence) < 5:  # Need a minimum length to even attempt a pattern search
-        return {'error': 'Need at least 5 rounds for this model.'}
+    if len(user_sequence) < 3: # Need at least 3 rounds for a basic fallback
+        return {'error': 'Need at least 3 rounds for this model.'}
 
-    # Try to find a pattern, starting with a length of 7 and going down to 3.
+    # --- Attempt A: Look for longer, repeating patterns ---
+    # Start with a long pattern and check for shorter ones if it fails.
     for pattern_length in range(7, 2, -1):
-        # Ensure we have enough history to even look for this pattern length
-        if len(user_sequence) < pattern_length * 2:
-            continue  # Skip to the next smaller pattern_length
-
-        pattern_to_match = user_sequence[-pattern_length:]
-        history = user_sequence[:-pattern_length]
-
-        match_results = []
-        for i in range(len(history) - pattern_length + 1):
-            historical_slice = history[i:i + pattern_length]
-            ratio = SequenceMatcher(None, pattern_to_match, historical_slice).ratio()
+        if len(user_sequence) >= pattern_length * 2:
+            pattern_to_match = user_sequence[-pattern_length:]
+            history = user_sequence[:-pattern_length]
+            match_results = []
+            for i in range(len(history) - pattern_length + 1):
+                historical_slice = history[i:i + pattern_length]
+                # Use a high similarity ratio for this complex match
+                if SequenceMatcher(None, pattern_to_match, historical_slice).ratio() >= 0.95:
+                    next_outcome_index = i + pattern_length
+                    if next_outcome_index < len(history):
+                        next_outcome = history[next_outcome_index]
+                        if next_outcome != TIE:
+                            match_results.append({'next_outcome': next_outcome})
             
-            # Use a high threshold for longer patterns, slightly looser for shorter ones
-            threshold = 0.9 if pattern_length > 4 else 0.8
+            if match_results:
+                outcome_counts = {k: [r['next_outcome'] for r in match_results].count(k) for k in (PLAYER, BANKER)}
+                total_matches = sum(outcome_counts.values())
+                if total_matches > 0:
+                    prediction = max(outcome_counts, key=outcome_counts.get)
+                    confidence = round((outcome_counts[prediction] / total_matches) * 100, 2)
+                    return {
+                        'prediction': prediction,
+                        'confidence': f"{confidence}%",
+                        'based_on': f"current_shoe_pattern_match ({pattern_length}-round pattern)",
+                        'matches_found': len(match_results)
+                    }
 
-            if ratio >= threshold:
-                next_outcome_index = i + pattern_length
-                if next_outcome_index < len(history):
-                    next_outcome = history[next_outcome_index]
-                    if next_outcome != TIE:
-                        match_results.append({'next_outcome': next_outcome})
-        
-        # If we found any matches with this pattern length, we're done.
-        if match_results:
-            outcome_counts = {k: [r['next_outcome'] for r in match_results].count(k) for k in (PLAYER, BANKER)}
-            total_matches = sum(outcome_counts.values())
-            
-            if total_matches == 0:
-                # We found matches but they all led to a Tie, try a shorter pattern
-                continue 
-            
-            prediction = max(outcome_counts, key=outcome_counts.get)
-            confidence = round((outcome_counts[prediction] / total_matches) * 100, 2)
-            return {
-                'prediction': prediction,
-                'confidence': f"{confidence}%",
-                'based_on': f"current_shoe_pattern_match ({pattern_length}-round pattern)",
-                'matches_found': len(match_results)
-            }
+    # --- Attempt B: If no complex patterns were found, run a simple fallback ---
+    last_outcome = user_sequence[-1]
+    if last_outcome == TIE:
+        return {'prediction': 'Banker', 'confidence': "0%", 'based_on': 'shoe_fallback (after tie)'}
 
-    # If the loop finishes without finding any patterns of any length
-    return {'error': 'No repeating patterns found in the current shoe.'}
+    player_wins, banker_wins = 0, 0
+    # Check what followed the last outcome in the past of THIS shoe
+    for i in range(len(user_sequence) - 1):
+        if user_sequence[i] == last_outcome:
+            next_in_seq = user_sequence[i+1]
+            if next_in_seq == PLAYER: player_wins += 1
+            elif next_in_seq == BANKER: banker_wins += 1
+    
+    total = player_wins + banker_wins
+    if total == 0:
+        return {'prediction': 'Banker', 'confidence': "0%", 'based_on': 'shoe_fallback (no transitions found)'}
+    
+    # Determine the most frequent transition
+    if player_wins > banker_wins:
+        prediction = PLAYER
+        confidence = round((player_wins / total) * 100, 2)
+    else:
+        # Default to Banker in case of a tie in transitions
+        prediction = BANKER
+        confidence = round((banker_wins / total) * 100, 2)
+
+    return {
+        'prediction': prediction,
+        'confidence': f"{confidence}%",
+        'based_on': 'shoe_transition_fallback'
+    }
 
 def calculate_best_fit_shoe_prediction(user_sequence, all_past_shoes):
     if len(user_sequence) < 5: return {'error': 'Need at least 5 rounds to find a best-fit shoe.'}
@@ -250,7 +198,13 @@ def home():
 def start_new_shoe():
     game_data = read_data_file()
     if game_data is None: return jsonify({'error': 'Could not read data file.'}), 500
-    last_shoe_id, is_active, _ = get_current_shoe_state(game_data)
+    ended_shoes = {rec['shoe_id'] for rec in game_data if rec.get('event') == 'SHOE_END'}
+    last_shoe_id, is_active = None, False
+    for record in reversed(game_data):
+        if record.get("event") == "SHOE_START":
+            last_shoe_id = record.get('shoe_id')
+            if last_shoe_id not in ended_shoes: is_active = True
+            break
     if is_active:
         game_data.append({"event": "SHOE_END", "shoe_id": last_shoe_id})
     all_shoe_numbers = {0}
@@ -277,7 +231,15 @@ def add_game():
     if determine_outcome(baccarat_total(player_hand), baccarat_total(banker_hand)) != outcome: return jsonify({'error': "Outcome does not match card totals."}), 400
     game_data = read_data_file()
     if game_data is None: return jsonify({'error': 'Could not read data file.'}), 500
-    current_shoe_id, is_active, shoe_start_index = get_current_shoe_state(game_data)
+    ended_shoes = {rec['shoe_id'] for rec in game_data if rec.get('event') == 'SHOE_END'}
+    current_shoe_id, shoe_start_index, is_active = None, -1, False
+    for i, record in enumerate(reversed(game_data)):
+        if record.get("event") == "SHOE_START":
+            current_shoe_id = record.get('shoe_id')
+            if current_shoe_id not in ended_shoes:
+                is_active = True
+                shoe_start_index = len(game_data) - 1 - i
+            break
     if not is_active: return jsonify({'error': 'No active shoe. Please start a new shoe first.'}), 400
     round_count = 1 + sum(1 for rec in game_data[shoe_start_index:] if rec.get('shoe_id') == current_shoe_id and 'outcome' in rec)
     new_game = {'player_hand': player_hand, 'banker_hand': banker_hand, 'outcome': outcome, 'shoe_id': current_shoe_id, 'round': round_count}
@@ -289,40 +251,39 @@ def add_game():
 def predict_sequence():
     game_data = read_data_file()
     if game_data is None: return jsonify({'error': 'Could not read data file.'}), 500
-    
     user_sequence = request.get_json().get('outcomes', [])
     if not isinstance(user_sequence, list) or len(user_sequence) == 0: 
         return jsonify({'error': 'Please provide a sequence.'}), 400
-
     all_outcomes = [g['outcome'] for g in game_data if 'outcome' in g]
-    
     ended_shoes = {rec['shoe_id'] for rec in game_data if rec.get('event') == 'SHOE_END'}
     current_shoe_id = None
     for record in reversed(game_data):
         if record.get("event") == "SHOE_START" and record.get('shoe_id') and record['shoe_id'] not in ended_shoes:
             current_shoe_id = record['shoe_id']
             break
-    
     all_past_shoes = {}
     for record in game_data:
         if 'outcome' in record and record.get('shoe_id') != current_shoe_id:
             shoe_id = record['shoe_id']
-            if shoe_id not in all_past_shoes:
-                all_past_shoes[shoe_id] = []
+            if shoe_id not in all_past_shoes: all_past_shoes[shoe_id] = []
             all_past_shoes[shoe_id].append(record['outcome'])
-
     return jsonify({
         'best_fit_shoe_prediction': calculate_best_fit_shoe_prediction(user_sequence, all_past_shoes),
         'current_shoe_prediction': calculate_current_shoe_prediction(user_sequence),
-        'historical_prediction': calculate_historical_prediction(user_sequence, all_outcomes),
-        'sequential_prediction': calculate_sequential_prediction(user_sequence)
+        'historical_prediction': calculate_historical_prediction(user_sequence, all_outcomes)
     })
 
 @app.route('/end_current_shoe', methods=['POST'])
 def end_current_shoe():
     game_data = read_data_file()
     if game_data is None: return jsonify({'error': 'Could not read data file.'}), 500
-    last_shoe_id, is_active, _ = get_current_shoe_state(game_data)
+    ended_shoes = {rec['shoe_id'] for rec in game_data if rec.get('event') == 'SHOE_END'}
+    last_shoe_id, is_active = None, False
+    for record in reversed(game_data):
+        if record.get("event") == "SHOE_START":
+            last_shoe_id = record.get('shoe_id')
+            if last_shoe_id not in ended_shoes: is_active = True
+            break
     if not is_active: return jsonify({'error': 'No active shoe to end.'}), 400
     game_data.append({"event": "SHOE_END", "shoe_id": last_shoe_id})
     if not write_data_file(game_data): return jsonify({'error': 'Failed to save shoe end data.'}), 500
