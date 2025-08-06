@@ -4,6 +4,7 @@ import json
 import os
 import threading
 import re
+import datetime
 
 # ---------- Configuration & Constants ----------
 app = Flask(__name__)
@@ -12,8 +13,10 @@ app = Flask(__name__)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, 'data')
 DATA_FILE = os.path.join(DATA_DIR, 'game_data.json')
+FEEDBACK_FILE = os.path.join(DATA_DIR, 'feedback_data.json')
 
 print(f"--- DATA FILE PATH IS: {DATA_FILE} ---")
+print(f"--- FEEDBACK FILE PATH IS: {FEEDBACK_FILE} ---")
 
 PLAYER, BANKER, TIE = 'Player', 'Banker', 'Tie'
 VALID_OUTCOMES = {PLAYER, BANKER, TIE}
@@ -50,6 +53,37 @@ def write_data_file(data):
             return True
         except IOError as e:
             app.logger.error(f"ERROR writing data file: {e}")
+            return False
+
+def record_feedback(prediction_data, actual_outcome):
+    """Records prediction feedback for model improvement."""
+    feedback_entry = {
+        'timestamp': datetime.datetime.now().isoformat(),
+        'prediction_data': prediction_data,
+        'actual_outcome': actual_outcome,
+        'was_correct': prediction_data.get('prediction') == actual_outcome
+    }
+    
+    with data_lock:
+        os.makedirs(DATA_DIR, exist_ok=True)
+        try:
+            # Read existing feedback
+            if os.path.isfile(FEEDBACK_FILE):
+                with open(FEEDBACK_FILE, 'r') as f:
+                    feedback_data = json.load(f)
+            else:
+                feedback_data = []
+            
+            # Add new feedback
+            feedback_data.append(feedback_entry)
+            
+            # Save back to file
+            with open(FEEDBACK_FILE, 'w') as f:
+                json.dump(feedback_data, f, indent=2)
+            
+            return True
+        except Exception as e:
+            app.logger.error(f"Error saving feedback: {e}")
             return False
 
 # --- Helper Functions ---
@@ -101,18 +135,46 @@ def calculate_historical_prediction(user_sequence, all_historical_outcomes):
     prediction = max(outcome_counts, key=outcome_counts.get); confidence = round((outcome_counts[prediction] / total_matches) * 100, 2)
     return {'prediction': prediction, 'confidence': f"{confidence}%", 'based_on': 'pattern_match', 'matches_found': len(match_results)}
 
-# --- REPLACE 'calculate_current_shoe_prediction' WITH THIS NEW, SMARTER VERSION ---
+def enhanced_calculate_historical_prediction(user_sequence, all_historical_outcomes):
+    # First try the original prediction
+    original_pred = calculate_historical_prediction(user_sequence, all_historical_outcomes)
+    
+    # If we have enough data, check feedback
+    if len(user_sequence) >= 5:
+        try:
+            with open(FEEDBACK_FILE, 'r') as f:
+                feedback_data = json.load(f)
+            
+            # Find similar sequences in feedback
+            similar_feedback = []
+            for fb in feedback_data:
+                if 'prediction_data' in fb and 'user_sequence' in fb['prediction_data']:
+                    fb_seq = fb['prediction_data']['user_sequence']
+                    if len(fb_seq) == len(user_sequence):
+                        similarity = SequenceMatcher(None, user_sequence, fb_seq).ratio()
+                        if similarity >= 0.8:
+                            similar_feedback.append(fb)
+            
+            # If we have significant feedback, adjust prediction
+            if len(similar_feedback) >= 3:
+                correct_predictions = sum(1 for fb in similar_feedback if fb['was_correct'])
+                accuracy = correct_predictions / len(similar_feedback)
+                
+                # If accuracy is poor, adjust confidence
+                if accuracy < 0.5:
+                    original_pred['confidence'] = f"{float(original_pred['confidence'].rstrip('%')) * accuracy:.2f}%"
+                    original_pred['based_on'] += " + feedback_adjusted"
+        
+        except (FileNotFoundError, json.JSONDecodeError, Exception) as e:
+            app.logger.error(f"Error reading feedback: {e}")
+    
+    return original_pred
 
 def calculate_current_shoe_prediction(user_sequence):
-    """
-    Looks for complex patterns first, and if none are found, falls back
-    to a simpler transition analysis for the current shoe.
-    """
-    if len(user_sequence) < 3: # Need at least 3 rounds for a basic fallback
+    if len(user_sequence) < 3:
         return {'error': 'Need at least 3 rounds for this model.'}
 
-    # --- Attempt A: Look for longer, repeating patterns ---
-    # Start with a long pattern and check for shorter ones if it fails.
+    # Look for longer, repeating patterns
     for pattern_length in range(7, 2, -1):
         if len(user_sequence) >= pattern_length * 2:
             pattern_to_match = user_sequence[-pattern_length:]
@@ -120,7 +182,6 @@ def calculate_current_shoe_prediction(user_sequence):
             match_results = []
             for i in range(len(history) - pattern_length + 1):
                 historical_slice = history[i:i + pattern_length]
-                # Use a high similarity ratio for this complex match
                 if SequenceMatcher(None, pattern_to_match, historical_slice).ratio() >= 0.95:
                     next_outcome_index = i + pattern_length
                     if next_outcome_index < len(history):
@@ -141,13 +202,12 @@ def calculate_current_shoe_prediction(user_sequence):
                         'matches_found': len(match_results)
                     }
 
-    # --- Attempt B: If no complex patterns were found, run a simple fallback ---
+    # Simple fallback if no complex patterns found
     last_outcome = user_sequence[-1]
     if last_outcome == TIE:
         return {'prediction': 'Banker', 'confidence': "0%", 'based_on': 'shoe_fallback (after tie)'}
 
     player_wins, banker_wins = 0, 0
-    # Check what followed the last outcome in the past of THIS shoe
     for i in range(len(user_sequence) - 1):
         if user_sequence[i] == last_outcome:
             next_in_seq = user_sequence[i+1]
@@ -158,12 +218,10 @@ def calculate_current_shoe_prediction(user_sequence):
     if total == 0:
         return {'prediction': 'Banker', 'confidence': "0%", 'based_on': 'shoe_fallback (no transitions found)'}
     
-    # Determine the most frequent transition
     if player_wins > banker_wins:
         prediction = PLAYER
         confidence = round((player_wins / total) * 100, 2)
     else:
-        # Default to Banker in case of a tie in transitions
         prediction = BANKER
         confidence = round((banker_wins / total) * 100, 2)
 
@@ -187,6 +245,47 @@ def calculate_best_fit_shoe_prediction(user_sequence, all_past_shoes):
     if best_match['ratio'] < 0.7: return {'error': f"No similar past shoe found (Best match was only {round(best_match['ratio']*100)}% similar)."}
     prediction = best_match['next_outcome']; confidence = round(best_match['ratio'] * 100, 2)
     return {'prediction': prediction, 'confidence': f"{confidence}% (similarity)", 'based_on': f"best_fit_shoe_match (shoe {best_match['shoe_id']})"}
+
+def weighted_prediction(user_sequence, all_historical_outcomes, all_past_shoes):
+    # Get all three predictions
+    historical = enhanced_calculate_historical_prediction(user_sequence, all_historical_outcomes)
+    current_shoe = calculate_current_shoe_prediction(user_sequence)
+    best_fit = calculate_best_fit_shoe_prediction(user_sequence, all_past_shoes)
+    
+    predictions = {
+        'historical': historical,
+        'current_shoe': current_shoe,
+        'best_fit': best_fit
+    }
+    
+    # If any prediction has error, exclude it
+    valid_preds = {k: v for k, v in predictions.items() if not v.get('error')}
+    
+    if not valid_preds:
+        return {'error': 'No valid predictions available'}
+    
+    # Calculate weights based on confidence
+    weighted_votes = {}
+    for pred_type, pred_data in valid_preds.items():
+        try:
+            confidence = float(pred_data['confidence'].rstrip('%'))
+            outcome = pred_data['prediction']
+            weighted_votes[outcome] = weighted_votes.get(outcome, 0) + confidence
+        except (ValueError, KeyError):
+            continue
+    
+    if not weighted_votes:
+        return {'error': 'Could not calculate weighted prediction'}
+    
+    # Get the outcome with highest weighted votes
+    final_prediction = max(weighted_votes.items(), key=lambda x: x[1])
+    
+    return {
+        'prediction': final_prediction[0],
+        'confidence': f"{final_prediction[1] / sum(weighted_votes.values()) * 100:.2f}%",
+        'based_on': 'weighted_ensemble',
+        'component_predictions': predictions
+    }
 
 # ---------- Flask Routes ----------
 
@@ -270,8 +369,20 @@ def predict_sequence():
     return jsonify({
         'best_fit_shoe_prediction': calculate_best_fit_shoe_prediction(user_sequence, all_past_shoes),
         'current_shoe_prediction': calculate_current_shoe_prediction(user_sequence),
-        'historical_prediction': calculate_historical_prediction(user_sequence, all_outcomes)
+        'historical_prediction': enhanced_calculate_historical_prediction(user_sequence, all_outcomes),
+        'weighted_prediction': weighted_prediction(user_sequence, all_outcomes, all_past_shoes)
     })
+
+@app.route('/provide_feedback', methods=['POST'])
+def provide_feedback():
+    req_data = request.get_json()
+    if not req_data or 'prediction_data' not in req_data or 'actual_outcome' not in req_data:
+        return jsonify({'error': 'Prediction data and actual outcome required'}), 400
+    
+    if record_feedback(req_data['prediction_data'], req_data['actual_outcome']):
+        return jsonify({'message': 'Feedback recorded successfully'}), 200
+    else:
+        return jsonify({'error': 'Failed to record feedback'}), 500
 
 @app.route('/end_current_shoe', methods=['POST'])
 def end_current_shoe():
