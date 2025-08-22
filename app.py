@@ -401,6 +401,4 @@ def end_current_shoe():
     return jsonify({'message': f'Successfully ended {last_shoe_id}.'}), 200
 
 # ---------- App Execution ----------
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', ))
-    app.run(host='...', port=port, debug=True)
+
