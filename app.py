@@ -402,5 +402,5 @@ def end_current_shoe():
 
 # ---------- App Execution ----------
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    port = int(os.environ.get('PORT', ))
+    app.run(host='...', port=port, debug=True)
