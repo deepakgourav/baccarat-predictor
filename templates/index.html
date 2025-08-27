@@ -1,5 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Baccarat Outcome Predictor</title>
+<style>
+  body { background: #121212; color: #eee; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 40px 20px; margin: 0; }
+  .container { background: #1e1e1e; padding: 25px 35px; border-radius: 10px; box-shadow: 0 0 25px rgba(0,0,0,0.5); width: 420px; max-width: 90vw; }
+  h1 { margin-top: 0; margin-bottom: 24px; text-align: center; color: #bb86fc; text-shadow: 0 0 5px #bb86fc; }
+  h3 { color: #bb86fc; margin-top: 25px; border-top: 1px solid #444; padding-top: 25px; margin-bottom: 20px;}
+  h4 { color: #03dac6; margin-bottom: 10px; margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 5px; }
+  label { display: block; font-weight: 600; margin-bottom: 8px; color: #ddd; }
+  button { width: 100%; padding: 12px 0; font-size: 16px; font-weight: 700; color: #fff; background-color: #bb86fc; border: none; border-radius: 6px; cursor: pointer; transition: background-color 0.3s ease, opacity 0.3s ease; user-select: none; margin-top: 10px;}
+  button:hover:not(:disabled) { background-color: #a362f7; }
+  button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
+  .btn-group { display: flex; justify-content: space-between; gap: 10px; margin-top: 10px; }
+  .btn-group button { margin-top: 0; }
+  .secondary-btn { background-color: #4a4a4a; }
+  .secondary-btn:hover:not(:disabled) { background-color: #5a5a5a; }
+  input, select { width: 100%; padding: 10px; background: #2c2c2c; border: 1px solid #444; color: #eee; border-radius: 5px; box-sizing: border-box; margin-bottom: 15px; }
+  #currentSequence { margin-top: 20px; background: #2c2c2c; padding: 15px; border-radius: 8px; font-size: 15px; color: #ccc; word-wrap: break-word; min-height: 24px; }
+  .result-box { margin-top: 15px; padding: 15px; border-radius: 8px; font-size: 15px; color: #ccc; word-wrap: break-word; line-height: 1.6; border: 1px solid #333; }
+  .result-box:empty { display: none; }
+  .error { color: #cf6679; font-weight: 600; }
+  .success { color: #03dac6; font-weight: 600; }
+  .warning { color: #ffca28; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Baccarat Predictor Pro</h1>
+
+  <label>1. Build Sequence:</label>
+  <div class="btn-group">
+    <button onclick="addOutcome('Player')">Player</button>
+    <button onclick="addOutcome('Banker')">Banker</button>
+    <button onclick="addOutcome('Tie')">Tie</button>
+  </div>
+  <div class="btn-group">
+      <button onclick="undoLastOutcome()" class="secondary-btn">Undo</button>
+      <button onclick="clearSequence()" class="secondary-btn">Clear All</button>
+  </div>
+
+  <div id="currentSequence">Current sequence: (empty)</div>
+  <button id="predictBtn">Predict Next Outcome</button>
+
+  <div id="bestFitResult" class="result-box"></div>
+  <div id="shoeResult" class="result-box"></div>
+  <div id="result" class="result-box"></div>
+  <div id="weightedResult" class="result-box"></div>
+
+  <div id="feedbackSection" style="margin-top: 20px; display: none;">
+    <label>Was this prediction correct?</label>
+    <div class="btn-group">
+      <button onclick="provideFeedback(true)">Yes</button>
+      <button onclick="provideFeedback(false)">No</button>
+    </div>
+  </div>
+
+  <h3>2. Manage Historical Data</h3>
+  
+  <div class="btn-group">
+    <button id="startShoeBtn">Start New Shoe</button>
+    <button id="endShoeBtn" class="secondary-btn">End Current Shoe</button>
+  </div>
+
+  <h4 style="margin-top: 25px;">Add Game to Current Shoe</h4>
+  <label for="playerHand">Player Hand (e.g., A-9)</label>
+  <input type="text" id="playerHand" placeholder="e.g., A-9" />
+  <label for="bankerHand">Banker Hand (e.g., K-7)</label>
+  <input type="text" id="bankerHand" placeholder="e.g., K-7" />
+  <label for="outcome">Actual Outcome</label>
+  <select id="outcome">
+    <option value="" disabled selected>Select Outcome</option>
+    <option value="Player">Player</option>
+    <option value="Banker">Banker</option>
+    <option value="Tie">Tie</option>
+  </select>
+  <button id="saveGameBtn">Save Game</button>
+  <div id="saveResult" style="margin-top: 15px; text-align: center;"></div>
+</div>
+
+<script>
+  let sequence = [];
+  let lastPredictionData = null;
+  const predictBtn = document.getElementById('predictBtn');
+  const saveGameBtn = document.getElementById('saveGameBtn');
+  const startShoeBtn = document.getElementById('startShoeBtn');
+  const endShoeBtn = document.getElementById('endShoeBtn');
+  const playerHandInput = document.getElementById('playerHand');
+  const bankerHandInput = document.getElementById('bankerHand');
+
+  function formatHandInput(inputElement) {
+    let rawValue = inputElement.value.toUpperCase();
+    const validParts = rawValue.match(/(10|[1-9AKQJ])/g) || [];
+    const limitedParts = validParts.slice(0, 3);
+    const formattedValue = limitedParts.join('-');
+    inputElement.value = formattedValue;
+  }
+  
+  playerHandInput.addEventListener('input', () => formatHandInput(playerHandInput));
+  bankerHandInput.addEventListener('input', () => formatHandInput(bankerHandInput));
+
+  function addOutcome(outcome) { sequence.push(outcome); updateSequenceDisplay(); }
+  function undoLastOutcome() { if (sequence.length > 0) { sequence.pop(); updateSequenceDisplay(); } }
+  
+  function clearSequence() {
+    sequence = [];
+    updateSequenceDisplay();
+    document.getElementById('bestFitResult').innerHTML = '';
+    document.getElementById('shoeResult').innerHTML = '';
+    document.getElementById('result').innerHTML = '';
+    document.getElementById('weightedResult').innerHTML = '';
+    document.getElementById('feedbackSection').style.display = 'none';
+  }
+
+  function updateSequenceDisplay() {
+    const displayDiv = document.getElementById('currentSequence');
+    displayDiv.textContent = sequence.length ? 'Current sequence: ' + sequence.join(', ') : 'Current sequence: (empty)';
+    predictBtn.disabled = sequence.length === 0;
+  }
+  
+  async function handleApiRequest(button, url, payload, resultDivId, successCallback) {
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = 'Working...';
+      const resultDiv = document.getElementById(resultDivId);
+      resultDiv.innerHTML = '';
+
+      try {
+          const response = await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+          const data = await response.json();
+          if (!response.ok) throw new Error(data.error || 'Unknown server error');
+          successCallback(data);
+      } catch (err) {
+          resultDiv.innerHTML = `<span class="error">Error: ${err.message}</span>`;
+      } finally {
+          button.disabled = false;
+          button.textContent = originalText;
+      }
+  }
+
+  predictBtn.addEventListener('click', () => {
+    const originalText = predictBtn.textContent;
+    predictBtn.disabled = true;
+    predictBtn.textContent = 'Working...';
+    
+    const bestFitResultDiv = document.getElementById('bestFitResult');
+    const shoeResultDiv = document.getElementById('shoeResult');
+    const resultDiv = document.getElementById('result');
+    const weightedResultDiv = document.getElementById('weightedResult');
+    const feedbackSection = document.getElementById('feedbackSection');
+    
+    bestFitResultDiv.innerHTML = '';
+    shoeResultDiv.innerHTML = '';
+    resultDiv.innerHTML = '';
+    weightedResultDiv.innerHTML = '';
+    feedbackSection.style.display = 'none';
+
+    fetch('/predict_sequence', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({outcomes: sequence}) })
+    .then(res => res.json().then(data => ({ ok: res.ok, data })))
+    .then(({ok, data}) => {
+        if (!ok) throw new Error(data.error || 'Unknown error');
+        
+        // Store the prediction data for feedback
+        lastPredictionData = {
+            best_fit_shoe_prediction: data.best_fit_shoe_prediction,
+            current_shoe_prediction: data.current_shoe_prediction,
+            historical_prediction: data.historical_prediction,
+            weighted_prediction: data.weighted_prediction,
+            user_sequence: [...sequence] // Copy of current sequence
+        };
+        
+        // Show feedback section
+        feedbackSection.style.display = 'block';
+        
+        const buildPredictionHtml = (title, predictionData, color) => {
+            let html = `<h4>${title}</h4>`;
+            if (predictionData.error) {
+                html += `<span class="error">${predictionData.error}</span>`;
+            } else {
+                html += `<strong>Prediction:</strong> <span style="color: ${color}; font-weight: bold;">${predictionData.prediction}</span><br>`;
+                html += `<strong>Confidence:</strong> ${predictionData.confidence}<br>`;
+                html += `<strong>Based on:</strong> ${predictionData.based_on.replace(/_/g, ' ')}<br>`;
+                if (predictionData.matches_found) html += `<strong>Matches found:</strong> ${predictionData.matches_found}`;
+            }
+            return html;
+        };
+
+        bestFitResultDiv.innerHTML = buildPredictionHtml('Best Fit Shoe Prediction (Expert)', data.best_fit_shoe_prediction, '#ffca28');
+        shoeResultDiv.innerHTML = buildPredictionHtml('Current Shoe Prediction (Relevant)', data.current_shoe_prediction, '#03dac6');
+        resultDiv.innerHTML = buildPredictionHtml('Overall Historical Prediction (General)', data.historical_prediction, '#bb86fc');
+        
+        // Add weighted prediction
+        if (data.weighted_prediction) {
+            if (data.weighted_prediction.error) {
+                weightedResultDiv.innerHTML = `<h4>Weighted Prediction (Recommended)</h4><span class="error">${data.weighted_prediction.error}</span>`;
+            } else {
+                weightedResultDiv.innerHTML = buildPredictionHtml('Weighted Prediction (Recommended)', data.weighted_prediction, '#4caf50');
+                // Show component predictions in a collapsible section
+                weightedResultDiv.innerHTML += `
+                    <details style="margin-top: 10px;">
+                        <summary>Component Predictions</summary>
+                        <div style="margin-top: 10px; padding-left: 10px; border-left: 2px solid #444;">
+                            <strong>Historical:</strong> ${data.weighted_prediction.component_predictions.historical.prediction} (${data.weighted_prediction.component_predictions.historical.confidence})<br>
+                            <strong>Current Shoe:</strong> ${data.weighted_prediction.component_predictions.current_shoe.prediction} (${data.weighted_prediction.component_predictions.current_shoe.confidence})<br>
+                            <strong>Best Fit Shoe:</strong> ${data.weighted_prediction.component_predictions.best_fit.prediction} (${data.weighted_prediction.component_predictions.best_fit.confidence})
+                        </div>
+                    </details>
+                `;
+            }
+        }
+
+    })
+    .catch(err => {
+        bestFitResultDiv.innerHTML = `<span class="error">Error: ${err.message}</span>`;
+    })
+    .finally(() => {
+        predictBtn.disabled = false;
+        predictBtn.textContent = originalText;
+        updateSequenceDisplay();
+    });
+  });
+
+  function provideFeedback(isCorrect) {
+    if (!lastPredictionData) return;
+    
+    const actualOutcome = isCorrect ? 
+        lastPredictionData.weighted_prediction.prediction : 
+        (lastPredictionData.weighted_prediction.prediction === 'Player' ? 'Banker' : 'Player');
+    
+    const payload = {
+        prediction_data: lastPredictionData,
+        actual_outcome: actualOutcome
+    };
+    
+    fetch('/provide_feedback', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.message) {
+            alert('Thank you for your feedback! This will help improve predictions.');
+        } else {
+            alert('Error submitting feedback: ' + (data.error || 'Unknown error'));
+        }
+        document.getElementById('feedbackSection').style.display = 'none';
+    })
+    .catch(err => {
+        alert('Error submitting feedback: ' + err.message);
     });
   }
 
   saveGameBtn.addEventListener('click', () => {
-      const payload = { player_hand: playerHandInput.value, banker_hand: bankerHandInput.value, outcome: document.getElementById('
+      const payload = { player_hand: playerHandInput.value, banker_hand: bankerHandInput.value, outcome: document.getElementById('outcome').value };
+      if (!payload.player_hand || !payload.banker_hand || !payload.outcome) {
+          document.getElementById('saveResult').innerHTML = '<span class="error">All fields are required.</span>';
+          return;
+      }
+      handleApiRequest(saveGameBtn, '/add_game', payload, 'saveResult', (data) => {
+          const saveResultDiv = document.getElementById('saveResult');
+          saveResultDiv.innerHTML = `<span class="success">${data.message}</span>`;
+          playerHandInput.value = '';
+          bankerHandInput.value = '';
+          document.getElementById('outcome').value = '';
+          setTimeout(() => { saveResultDiv.innerHTML = ''; }, 3000);
+      });
+  });
+
+  startShoeBtn.addEventListener('click', () => {
+    handleApiRequest(startShoeBtn, '/start_new_shoe', {}, 'saveResult', (data) => {
+        const saveResultDiv = document.getElementById('saveResult');
+        saveResultDiv.innerHTML = `<span class="success">${data.message}</span>`;
+        setTimeout(() => { saveResultDiv.innerHTML = ''; }, 3000);
+    });
+  });
+
+  endShoeBtn.addEventListener('click', () => {
+    handleApiRequest(endShoeBtn, '/end_current_shoe', {}, 'saveResult', (data) => {
+        const saveResultDiv = document.getElementById('saveResult');
+        saveResultDiv.innerHTML = `<span class="success">${data.message}</span>`;
+        setTimeout(() => { saveResultDiv.innerHTML = ''; }, 3000);
+    });
+  });
+
+  updateSequenceDisplay();
+</script>
+</body>
+</html>
