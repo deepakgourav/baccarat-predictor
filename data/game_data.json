@@ -43210,5 +43210,3920 @@
   {
     "event": "SHOE_END",
     "shoe_id": "shoe_85"
+  },
+  {
+    "event": "SHOE_START",
+    "shoe_id": "shoe_86"
+  },
+  {
+    "player_hand": "2-3",
+    "banker_hand": "5-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 1
+  },
+  {
+    "player_hand": "K-5",
+    "banker_hand": "J-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 2
+  },
+  {
+    "player_hand": "Q-9",
+    "banker_hand": "2-4",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 3
+  },
+  {
+    "player_hand": "8-8",
+    "banker_hand": "6-10",
+    "outcome": "Tie",
+    "shoe_id": "shoe_86",
+    "round": 4
+  },
+  {
+    "player_hand": "8-8",
+    "banker_hand": "3-4",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 5
+  },
+  {
+    "player_hand": "8-6-6",
+    "banker_hand": "7-8-10",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 6
+  },
+  {
+    "player_hand": "10-10-A",
+    "banker_hand": "A-10-J",
+    "outcome": "Tie",
+    "shoe_id": "shoe_86",
+    "round": 7
+  },
+  {
+    "player_hand": "6-5-4",
+    "banker_hand": "K-4-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 8
+  },
+  {
+    "player_hand": "9-6-2",
+    "banker_hand": "2-Q-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 9
+  },
+  {
+    "player_hand": "K-Q-A",
+    "banker_hand": "A-J-Q",
+    "outcome": "Tie",
+    "shoe_id": "shoe_86",
+    "round": 10
+  },
+  {
+    "player_hand": "8-A",
+    "banker_hand": "2-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 11
+  },
+  {
+    "player_hand": "5-9-4",
+    "banker_hand": "J-5-8",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 12
+  },
+  {
+    "player_hand": "9-3-7",
+    "banker_hand": "K-2-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 13
+  },
+  {
+    "player_hand": "6-10",
+    "banker_hand": "6-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 14
+  },
+  {
+    "player_hand": "J-A",
+    "banker_hand": "6-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 15
+  },
+  {
+    "player_hand": "10-10-7",
+    "banker_hand": "10-4-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 16
+  },
+  {
+    "player_hand": "8-A",
+    "banker_hand": "3-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 17
+  },
+  {
+    "player_hand": "6-A",
+    "banker_hand": "4-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 18
+  },
+  {
+    "player_hand": "8-10",
+    "banker_hand": "8-6",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 19
+  },
+  {
+    "player_hand": "J-5-2",
+    "banker_hand": "9-7",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 20
+  },
+  {
+    "player_hand": "J-9",
+    "banker_hand": "2-6",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 21
+  },
+  {
+    "player_hand": "A-10-5",
+    "banker_hand": "6-A",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 22
+  },
+  {
+    "player_hand": "Q-7",
+    "banker_hand": "Q-3-8",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 23
+  },
+  {
+    "player_hand": "K-A-2",
+    "banker_hand": "K-Q-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 24
+  },
+  {
+    "player_hand": "6-8-Q",
+    "banker_hand": "K-5",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 25
+  },
+  {
+    "player_hand": "4-10-6",
+    "banker_hand": "J-A-9",
+    "outcome": "Tie",
+    "shoe_id": "shoe_86",
+    "round": 26
+  },
+  {
+    "player_hand": "Q-9",
+    "banker_hand": "9-4",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 27
+  },
+  {
+    "player_hand": "K-5-4",
+    "banker_hand": "3-J-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 28
+  },
+  {
+    "player_hand": "6-5-2",
+    "banker_hand": "6-8-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 29
+  },
+  {
+    "player_hand": "Q-6",
+    "banker_hand": "5-8-J",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 30
+  },
+  {
+    "player_hand": "9-4",
+    "banker_hand": "8-A",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 31
+  },
+  {
+    "player_hand": "Q-4",
+    "banker_hand": "8-K",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 32
+  },
+  {
+    "player_hand": "6-2",
+    "banker_hand": "2-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 33
+  },
+  {
+    "player_hand": "A-A-K",
+    "banker_hand": "Q-4",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 34
+  },
+  {
+    "player_hand": "7-8-9",
+    "banker_hand": "6-K",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 35
+  },
+  {
+    "player_hand": "9-2-J",
+    "banker_hand": "7-3-J",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 36
+  },
+  {
+    "player_hand": "3-A",
+    "banker_hand": "9-J",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 37
+  },
+  {
+    "player_hand": "5-2",
+    "banker_hand": "8-5-7",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 38
+  },
+  {
+    "player_hand": "4-2",
+    "banker_hand": "3-5",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 39
+  },
+  {
+    "player_hand": "A-K-K",
+    "banker_hand": "8-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 40
+  },
+  {
+    "player_hand": "6-A",
+    "banker_hand": "8-A",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 41
+  },
+  {
+    "player_hand": "7-J",
+    "banker_hand": "5-5-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 42
+  },
+  {
+    "player_hand": "J-J-A",
+    "banker_hand": "9-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 43
+  },
+  {
+    "player_hand": "8-J",
+    "banker_hand": "7-3",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 44
+  },
+  {
+    "player_hand": "J-J-10",
+    "banker_hand": "3-Q-6",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 45
+  },
+  {
+    "player_hand": "4-K",
+    "banker_hand": "8-10",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 46
+  },
+  {
+    "player_hand": "A-7",
+    "banker_hand": "8-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 47
+  },
+  {
+    "player_hand": "Q-6",
+    "banker_hand": "3-Q-3",
+    "outcome": "Tie",
+    "shoe_id": "shoe_86",
+    "round": 48
+  },
+  {
+    "player_hand": "10-6",
+    "banker_hand": "5-10-9",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 49
+  },
+  {
+    "player_hand": "7-10",
+    "banker_hand": "8-3-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 50
+  },
+  {
+    "player_hand": "Q-Q",
+    "banker_hand": "Q-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 51
+  },
+  {
+    "player_hand": "K-9",
+    "banker_hand": "9-7",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 52
+  },
+  {
+    "player_hand": "4-4",
+    "banker_hand": "10-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 53
+  },
+  {
+    "player_hand": "3-J-A",
+    "banker_hand": "3-8-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 54
+  },
+  {
+    "player_hand": "7-5-A",
+    "banker_hand": "8-5-5",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 55
+  },
+  {
+    "player_hand": "8-K",
+    "banker_hand": "7-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 56
+  },
+  {
+    "player_hand": "9-K",
+    "banker_hand": "3-3",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 57
+  },
+  {
+    "player_hand": "2-7",
+    "banker_hand": "7-A",
+    "outcome": "Player",
+    "shoe_id": "shoe_86",
+    "round": 58
+  },
+  {
+    "player_hand": "4-10-A",
+    "banker_hand": "6-A",
+    "outcome": "Banker",
+    "shoe_id": "shoe_86",
+    "round": 59
+  },
+  {
+    "event": "SHOE_END",
+    "shoe_id": "shoe_86"
+  },
+  {
+    "event": "SHOE_START",
+    "shoe_id": "shoe_87"
+  },
+  {
+    "player_hand": "5-3",
+    "banker_hand": "K-5",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 1
+  },
+  {
+    "player_hand": "3-2",
+    "banker_hand": "K-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 2
+  },
+  {
+    "player_hand": "3-4",
+    "banker_hand": "K-2-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 3
+  },
+  {
+    "player_hand": "K-10-5",
+    "banker_hand": "9-4-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 4
+  },
+  {
+    "player_hand": "2-9-3",
+    "banker_hand": "2-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 5
+  },
+  {
+    "player_hand": "10-7",
+    "banker_hand": "9-K",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 6
+  },
+  {
+    "player_hand": "8-5",
+    "banker_hand": "6-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 7
+  },
+  {
+    "player_hand": "5-3",
+    "banker_hand": "5-4",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 8
+  },
+  {
+    "player_hand": "9-9",
+    "banker_hand": "4-3",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 9
+  },
+  {
+    "player_hand": "A-Q-7",
+    "banker_hand": "7-5-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 10
+  },
+  {
+    "player_hand": "10-5-8",
+    "banker_hand": "2-J-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 11
+  },
+  {
+    "player_hand": "2-7",
+    "banker_hand": "6-5",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 12
+  },
+  {
+    "player_hand": "4-A-4",
+    "banker_hand": "A-3-9",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 13
+  },
+  {
+    "player_hand": "9-2",
+    "banker_hand": "9-Q",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 14
+  },
+  {
+    "player_hand": "5-9-K",
+    "banker_hand": "6-Q",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 15
+  },
+  {
+    "player_hand": "5-J-K",
+    "banker_hand": "10-J-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 16
+  },
+  {
+    "player_hand": "8-4-9",
+    "banker_hand": "4-9-8",
+    "outcome": "Tie",
+    "shoe_id": "shoe_87",
+    "round": 17
+  },
+  {
+    "player_hand": "8-10",
+    "banker_hand": "Q-5",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 18
+  },
+  {
+    "player_hand": "A-Q",
+    "banker_hand": "8-J",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 19
+  },
+  {
+    "player_hand": "K-8",
+    "banker_hand": "7-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 20
+  },
+  {
+    "player_hand": "8-4",
+    "banker_hand": "8-J",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 21
+  },
+  {
+    "player_hand": "9-6-6",
+    "banker_hand": "Q-J-5",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 22
+  },
+  {
+    "player_hand": "3-2",
+    "banker_hand": "5-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 23
+  },
+  {
+    "player_hand": "J-2-7",
+    "banker_hand": "2-2-3",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 24
+  },
+  {
+    "player_hand": "Q-9",
+    "banker_hand": "A-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 25
+  },
+  {
+    "player_hand": "7-4-3",
+    "banker_hand": "K-4-8",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 26
+  },
+  {
+    "player_hand": "6-J",
+    "banker_hand": "K-A-5",
+    "outcome": "Tie",
+    "shoe_id": "shoe_87",
+    "round": 27
+  },
+  {
+    "player_hand": "8-A",
+    "banker_hand": "8-A",
+    "outcome": "Tie",
+    "shoe_id": "shoe_87",
+    "round": 28
+  },
+  {
+    "player_hand": "K-Q-3",
+    "banker_hand": "A-10-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 29
+  },
+  {
+    "player_hand": "7-J",
+    "banker_hand": "7-8-4",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 30
+  },
+  {
+    "player_hand": "Q-10-8",
+    "banker_hand": "Q-3",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 31
+  },
+  {
+    "player_hand": "8-K",
+    "banker_hand": "3-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 32
+  },
+  {
+    "player_hand": "2-2-7",
+    "banker_hand": "A-4-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 33
+  },
+  {
+    "player_hand": "8-Q",
+    "banker_hand": "9-6",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 34
+  },
+  {
+    "player_hand": "3-6",
+    "banker_hand": "7-2",
+    "outcome": "Tie",
+    "shoe_id": "shoe_87",
+    "round": 35
+  },
+  {
+    "player_hand": "3-5",
+    "banker_hand": "A-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 36
+  },
+  {
+    "player_hand": "4-3",
+    "banker_hand": "J-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 37
+  },
+  {
+    "player_hand": "6-K",
+    "banker_hand": "4-10-8",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 38
+  },
+  {
+    "player_hand": "6-K",
+    "banker_hand": "J-A-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 39
+  },
+  {
+    "player_hand": "K-J-5",
+    "banker_hand": "10-A-J",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 40
+  },
+  {
+    "player_hand": "2-4",
+    "banker_hand": "7-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 41
+  },
+  {
+    "player_hand": "4-10",
+    "banker_hand": "A-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 42
+  },
+  {
+    "player_hand": "10-10-J",
+    "banker_hand": "6-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 43
+  },
+  {
+    "player_hand": "9-8",
+    "banker_hand": "6-J",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 44
+  },
+  {
+    "player_hand": "10-J-10",
+    "banker_hand": "3-10-10",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 45
+  },
+  {
+    "player_hand": "2-Q",
+    "banker_hand": "K-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 46
+  },
+  {
+    "player_hand": "Q-10-8",
+    "banker_hand": "10-K-6",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 47
+  },
+  {
+    "player_hand": "3-3",
+    "banker_hand": "4-9-8",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 48
+  },
+  {
+    "player_hand": "K-A-2",
+    "banker_hand": "7-Q",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 49
+  },
+  {
+    "player_hand": "9-J",
+    "banker_hand": "9-Q",
+    "outcome": "Tie",
+    "shoe_id": "shoe_87",
+    "round": 50
+  },
+  {
+    "player_hand": "4-J-4",
+    "banker_hand": "K-J-A",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 51
+  },
+  {
+    "player_hand": "K-6",
+    "banker_hand": "A-5",
+    "outcome": "Tie",
+    "shoe_id": "shoe_87",
+    "round": 52
+  },
+  {
+    "player_hand": "7-4-K",
+    "banker_hand": "6-Q",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 53
+  },
+  {
+    "player_hand": "3-7-8",
+    "banker_hand": "7-6",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 54
+  },
+  {
+    "player_hand": "10-A",
+    "banker_hand": "9-J",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 55
+  },
+  {
+    "player_hand": "3-6",
+    "banker_hand": "5-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 56
+  },
+  {
+    "player_hand": "8-A",
+    "banker_hand": "5-9",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 57
+  },
+  {
+    "player_hand": "J-4-7",
+    "banker_hand": "Q-4-7",
+    "outcome": "Tie",
+    "shoe_id": "shoe_87",
+    "round": 58
+  },
+  {
+    "player_hand": "Q-2-K",
+    "banker_hand": "J-5",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 59
+  },
+  {
+    "player_hand": "4-2",
+    "banker_hand": "6-A",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 60
+  },
+  {
+    "player_hand": "3-Q",
+    "banker_hand": "5-4",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 61
+  },
+  {
+    "player_hand": "10-6",
+    "banker_hand": "9-7",
+    "outcome": "Tie",
+    "shoe_id": "shoe_87",
+    "round": 62
+  },
+  {
+    "player_hand": "10-10-4",
+    "banker_hand": "A-4-A",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 63
+  },
+  {
+    "player_hand": "6-3",
+    "banker_hand": "K-5",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 64
+  },
+  {
+    "player_hand": "J-6",
+    "banker_hand": "6-8-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 65
+  },
+  {
+    "player_hand": "8-2-5",
+    "banker_hand": "Q-6",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 66
+  },
+  {
+    "player_hand": "5-K-2",
+    "banker_hand": "7-3-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_87",
+    "round": 67
+  },
+  {
+    "player_hand": "3-5",
+    "banker_hand": "J-7",
+    "outcome": "Player",
+    "shoe_id": "shoe_87",
+    "round": 68
+  },
+  {
+    "event": "SHOE_END",
+    "shoe_id": "shoe_87"
+  },
+  {
+    "event": "SHOE_START",
+    "shoe_id": "shoe_88"
+  },
+  {
+    "player_hand": "9-Q",
+    "banker_hand": "9-7",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 1
+  },
+  {
+    "player_hand": "8-3",
+    "banker_hand": "8-10",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 2
+  },
+  {
+    "player_hand": "9-J",
+    "banker_hand": "9-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 3
+  },
+  {
+    "player_hand": "J-5-2",
+    "banker_hand": "4-7-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 4
+  },
+  {
+    "player_hand": "K-7",
+    "banker_hand": "J-7",
+    "outcome": "Tie",
+    "shoe_id": "shoe_88",
+    "round": 5
+  },
+  {
+    "player_hand": "9-7",
+    "banker_hand": "8-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 6
+  },
+  {
+    "player_hand": "6-5-3",
+    "banker_hand": "6-Q",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 7
+  },
+  {
+    "player_hand": "6-5-4",
+    "banker_hand": "J-5-4",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 8
+  },
+  {
+    "player_hand": "Q-2-Q",
+    "banker_hand": "K-5",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 9
+  },
+  {
+    "player_hand": "4-9-8",
+    "banker_hand": "J-K-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 10
+  },
+  {
+    "player_hand": "10-K-8",
+    "banker_hand": "5-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 11
+  },
+  {
+    "player_hand": "9-7",
+    "banker_hand": "3-Q-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 12
+  },
+  {
+    "player_hand": "Q-2-8",
+    "banker_hand": "J-K-K",
+    "outcome": "Tie",
+    "shoe_id": "shoe_88",
+    "round": 13
+  },
+  {
+    "player_hand": "K-2-10",
+    "banker_hand": "5-7-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 14
+  },
+  {
+    "player_hand": "6-7-5",
+    "banker_hand": "4-6-8",
+    "outcome": "Tie",
+    "shoe_id": "shoe_88",
+    "round": 15
+  },
+  {
+    "player_hand": "K-6",
+    "banker_hand": "3-5",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 16
+  },
+  {
+    "player_hand": "K-7",
+    "banker_hand": "7-A",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 17
+  },
+  {
+    "player_hand": "J-7",
+    "banker_hand": "6-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 18
+  },
+  {
+    "player_hand": "A-K",
+    "banker_hand": "7-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 19
+  },
+  {
+    "player_hand": "Q-4",
+    "banker_hand": "9-10",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 20
+  },
+  {
+    "player_hand": "5-A",
+    "banker_hand": "2-2-9",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 21
+  },
+  {
+    "player_hand": "A-K-8",
+    "banker_hand": "J-Q-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 22
+  },
+  {
+    "player_hand": "3-3",
+    "banker_hand": "2-A-6",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 23
+  },
+  {
+    "player_hand": "9-5-A",
+    "banker_hand": "K-J-6",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 24
+  },
+  {
+    "player_hand": "Q-8",
+    "banker_hand": "10-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 25
+  },
+  {
+    "player_hand": "7-9",
+    "banker_hand": "4-Q-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 26
+  },
+  {
+    "player_hand": "7-9",
+    "banker_hand": "5-10-5",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 27
+  },
+  {
+    "player_hand": "4-2",
+    "banker_hand": "3-A-A",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 28
+  },
+  {
+    "player_hand": "9-8",
+    "banker_hand": "6-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 29
+  },
+  {
+    "player_hand": "6-8-7",
+    "banker_hand": "4-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 30
+  },
+  {
+    "player_hand": "4-Q-K",
+    "banker_hand": "9-4-8",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 31
+  },
+  {
+    "player_hand": "A-6",
+    "banker_hand": "5-A",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 32
+  },
+  {
+    "player_hand": "7-4",
+    "banker_hand": "J-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 33
+  },
+  {
+    "player_hand": "3-4",
+    "banker_hand": "7-7-4",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 34
+  },
+  {
+    "player_hand": "3-8-10",
+    "banker_hand": "10-6",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 35
+  },
+  {
+    "player_hand": "6-10",
+    "banker_hand": "Q-J-J",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 36
+  },
+  {
+    "player_hand": "Q-K-2",
+    "banker_hand": "4-K-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 37
+  },
+  {
+    "player_hand": "A-6",
+    "banker_hand": "9-5-4",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 38
+  },
+  {
+    "player_hand": "6-8-10",
+    "banker_hand": "5-9",
+    "outcome": "Tie",
+    "shoe_id": "shoe_88",
+    "round": 39
+  },
+  {
+    "player_hand": "K-8",
+    "banker_hand": "8-A",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 40
+  },
+  {
+    "player_hand": "3-J-A",
+    "banker_hand": "8-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 41
+  },
+  {
+    "player_hand": "A-9-7",
+    "banker_hand": "6-4-6",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 42
+  },
+  {
+    "player_hand": "7-9",
+    "banker_hand": "2-3-8",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 43
+  },
+  {
+    "player_hand": "4-J-9",
+    "banker_hand": "6-10",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 44
+  },
+  {
+    "player_hand": "5-A",
+    "banker_hand": "A-Q-3",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 45
+  },
+  {
+    "player_hand": "5-Q-J",
+    "banker_hand": "7-8",
+    "outcome": "Tie",
+    "shoe_id": "shoe_88",
+    "round": 46
+  },
+  {
+    "player_hand": "J-6",
+    "banker_hand": "3-3",
+    "outcome": "Tie",
+    "shoe_id": "shoe_88",
+    "round": 47
+  },
+  {
+    "player_hand": "6-4-4",
+    "banker_hand": "A-J-5",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 48
+  },
+  {
+    "player_hand": "4-6",
+    "banker_hand": "7-A",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 49
+  },
+  {
+    "player_hand": "J-8",
+    "banker_hand": "10-4",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 50
+  },
+  {
+    "player_hand": "9-5-3",
+    "banker_hand": "4-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 51
+  },
+  {
+    "player_hand": "J-10-10",
+    "banker_hand": "4-Q",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 52
+  },
+  {
+    "player_hand": "A-9-3",
+    "banker_hand": "K-J-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 53
+  },
+  {
+    "player_hand": "3-J-Q",
+    "banker_hand": "2-A-7",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 54
+  },
+  {
+    "player_hand": "2-Q-5",
+    "banker_hand": "2-10-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 55
+  },
+  {
+    "player_hand": "2-10-A",
+    "banker_hand": "2-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 56
+  },
+  {
+    "player_hand": "7-7",
+    "banker_hand": "9-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 57
+  },
+  {
+    "player_hand": "Q-2-6",
+    "banker_hand": "3-Q-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 58
+  },
+  {
+    "player_hand": "A-K-10",
+    "banker_hand": "J-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 59
+  },
+  {
+    "player_hand": "8-K",
+    "banker_hand": "7-9",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 60
+  },
+  {
+    "player_hand": "5-7-3",
+    "banker_hand": "Q-10-6",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 61
+  },
+  {
+    "player_hand": "10-Q",
+    "banker_hand": "9-10",
+    "outcome": "Banker",
+    "shoe_id": "shoe_88",
+    "round": 62
+  },
+  {
+    "player_hand": "4-J-2",
+    "banker_hand": "3-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_88",
+    "round": 63
+  },
+  {
+    "event": "SHOE_END",
+    "shoe_id": "shoe_88"
+  },
+  {
+    "event": "SHOE_START",
+    "shoe_id": "shoe_89"
+  },
+  {
+    "player_hand": "2-6",
+    "banker_hand": "7-4",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 1
+  },
+  {
+    "player_hand": "J-10-10",
+    "banker_hand": "9-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 2
+  },
+  {
+    "player_hand": "7-2",
+    "banker_hand": "4-3",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 3
+  },
+  {
+    "player_hand": "6-J",
+    "banker_hand": "Q-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 4
+  },
+  {
+    "player_hand": "K-8",
+    "banker_hand": "7-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 5
+  },
+  {
+    "player_hand": "3-2-2",
+    "banker_hand": "Q-3-9",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 6
+  },
+  {
+    "player_hand": "K-6",
+    "banker_hand": "A-A-6",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 7
+  },
+  {
+    "player_hand": "9-2-Q",
+    "banker_hand": "5-A",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 8
+  },
+  {
+    "player_hand": "6-10",
+    "banker_hand": "A-A-6",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 9
+  },
+  {
+    "player_hand": "Q-A",
+    "banker_hand": "9-J",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 10
+  },
+  {
+    "player_hand": "Q-K-9",
+    "banker_hand": "6-8",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 11
+  },
+  {
+    "player_hand": "9-7",
+    "banker_hand": "10-10-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 12
+  },
+  {
+    "player_hand": "3-A-A",
+    "banker_hand": "6-5-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 13
+  },
+  {
+    "player_hand": "K-K-2",
+    "banker_hand": "4-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 14
+  },
+  {
+    "player_hand": "7-J",
+    "banker_hand": "2-Q-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 15
+  },
+  {
+    "player_hand": "5-7-7",
+    "banker_hand": "5-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 16
+  },
+  {
+    "player_hand": "4-7-K",
+    "banker_hand": "A-A-Q",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 17
+  },
+  {
+    "player_hand": "8-10",
+    "banker_hand": "6-8",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 18
+  },
+  {
+    "player_hand": "8-A",
+    "banker_hand": "A-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 19
+  },
+  {
+    "player_hand": "9-7",
+    "banker_hand": "J-5-A",
+    "outcome": "Tie",
+    "shoe_id": "shoe_89",
+    "round": 20
+  },
+  {
+    "player_hand": "6-5",
+    "banker_hand": "7-A",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 21
+  },
+  {
+    "player_hand": "10-9",
+    "banker_hand": "9-10",
+    "outcome": "Tie",
+    "shoe_id": "shoe_89",
+    "round": 22
+  },
+  {
+    "player_hand": "A-A-Q",
+    "banker_hand": "4-K",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 23
+  },
+  {
+    "player_hand": "7-3",
+    "banker_hand": "8-10",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 24
+  },
+  {
+    "player_hand": "J-8",
+    "banker_hand": "5-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 25
+  },
+  {
+    "player_hand": "9-9",
+    "banker_hand": "4-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 26
+  },
+  {
+    "player_hand": "Q-10",
+    "banker_hand": "9-J",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 27
+  },
+  {
+    "player_hand": "9-4-4",
+    "banker_hand": "J-2-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 28
+  },
+  {
+    "player_hand": "J-J",
+    "banker_hand": "4-4",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 29
+  },
+  {
+    "player_hand": "5-K-3",
+    "banker_hand": "2-5",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 30
+  },
+  {
+    "player_hand": "3-7",
+    "banker_hand": "7-A",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 31
+  },
+  {
+    "player_hand": "2-Q",
+    "banker_hand": "7-A",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 32
+  },
+  {
+    "player_hand": "6-A",
+    "banker_hand": "5-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 33
+  },
+  {
+    "player_hand": "Q-K",
+    "banker_hand": "J-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 34
+  },
+  {
+    "player_hand": "5-6-3",
+    "banker_hand": "10-6",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 35
+  },
+  {
+    "player_hand": "Q-5",
+    "banker_hand": "K-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 36
+  },
+  {
+    "player_hand": "Q-J",
+    "banker_hand": "8-J",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 37
+  },
+  {
+    "player_hand": "K-8",
+    "banker_hand": "K-7",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 38
+  },
+  {
+    "player_hand": "A-10-4",
+    "banker_hand": "6-6-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 39
+  },
+  {
+    "player_hand": "J-K-6",
+    "banker_hand": "6-9-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 40
+  },
+  {
+    "player_hand": "8-3",
+    "banker_hand": "Q-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 41
+  },
+  {
+    "player_hand": "8-4-Q",
+    "banker_hand": "J-3-8",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 42
+  },
+  {
+    "player_hand": "3-7-5",
+    "banker_hand": "4-7-4",
+    "outcome": "Tie",
+    "shoe_id": "shoe_89",
+    "round": 43
+  },
+  {
+    "player_hand": "3-6",
+    "banker_hand": "4-4",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 44
+  },
+  {
+    "player_hand": "6-9-2",
+    "banker_hand": "J-6",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 45
+  },
+  {
+    "player_hand": "3-2-8",
+    "banker_hand": "A-Q-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 46
+  },
+  {
+    "player_hand": "K-8",
+    "banker_hand": "9-Q",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 47
+  },
+  {
+    "player_hand": "6-7",
+    "banker_hand": "9-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 48
+  },
+  {
+    "player_hand": "A-8",
+    "banker_hand": "4-6",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 49
+  },
+  {
+    "player_hand": "2-3",
+    "banker_hand": "2-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 50
+  },
+  {
+    "player_hand": "Q-6",
+    "banker_hand": "K-10-3",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 51
+  },
+  {
+    "player_hand": "3-9",
+    "banker_hand": "6-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 52
+  },
+  {
+    "player_hand": "7-2",
+    "banker_hand": "A-9",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 53
+  },
+  {
+    "player_hand": "2-A-9",
+    "banker_hand": "6-7-8",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 54
+  },
+  {
+    "player_hand": "5-5-3",
+    "banker_hand": "Q-2-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 55
+  },
+  {
+    "player_hand": "10-Q",
+    "banker_hand": "3-5",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 56
+  },
+  {
+    "player_hand": "3-Q-6",
+    "banker_hand": "9-3-5",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 57
+  },
+  {
+    "player_hand": "K-5",
+    "banker_hand": "4-4",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 58
+  },
+  {
+    "player_hand": "9-K",
+    "banker_hand": "4-4",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 59
+  },
+  {
+    "player_hand": "4-J-Q",
+    "banker_hand": "Q-10-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_89",
+    "round": 60
+  },
+  {
+    "player_hand": "2-3",
+    "banker_hand": "Q-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_89",
+    "round": 61
+  },
+  {
+    "event": "SHOE_END",
+    "shoe_id": "shoe_89"
+  },
+  {
+    "event": "SHOE_START",
+    "shoe_id": "shoe_90"
+  },
+  {
+    "player_hand": "4-Q-8",
+    "banker_hand": "K-J-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 1
+  },
+  {
+    "player_hand": "6-3",
+    "banker_hand": "A-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 2
+  },
+  {
+    "player_hand": "Q-7",
+    "banker_hand": "2-4",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 3
+  },
+  {
+    "player_hand": "9-3-2",
+    "banker_hand": "A-A-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 4
+  },
+  {
+    "player_hand": "4-J-K",
+    "banker_hand": "10-6",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 5
+  },
+  {
+    "player_hand": "J-6",
+    "banker_hand": "J-2-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 6
+  },
+  {
+    "player_hand": "8-K",
+    "banker_hand": "J-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 7
+  },
+  {
+    "player_hand": "5-2",
+    "banker_hand": "K-7",
+    "outcome": "Tie",
+    "shoe_id": "shoe_90",
+    "round": 8
+  },
+  {
+    "player_hand": "Q-A-Q",
+    "banker_hand": "7-10",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 9
+  },
+  {
+    "player_hand": "3-3",
+    "banker_hand": "Q-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 10
+  },
+  {
+    "player_hand": "6-2",
+    "banker_hand": "A-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 11
+  },
+  {
+    "player_hand": "J-Q-3",
+    "banker_hand": "9-A-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 12
+  },
+  {
+    "player_hand": "Q-7",
+    "banker_hand": "9-2-9",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 13
+  },
+  {
+    "player_hand": "K-4-7",
+    "banker_hand": "9-3-10",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 14
+  },
+  {
+    "player_hand": "5-K-J",
+    "banker_hand": "4-9-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 15
+  },
+  {
+    "player_hand": "J-3-4",
+    "banker_hand": "3-9-8",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 16
+  },
+  {
+    "player_hand": "J-8",
+    "banker_hand": "7-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 17
+  },
+  {
+    "player_hand": "10-4-10",
+    "banker_hand": "A-A-J",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 18
+  },
+  {
+    "player_hand": "10-9",
+    "banker_hand": "10-A",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 19
+  },
+  {
+    "player_hand": "8-10",
+    "banker_hand": "4-A",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 20
+  },
+  {
+    "player_hand": "4-6",
+    "banker_hand": "K-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 21
+  },
+  {
+    "player_hand": "6-6-8",
+    "banker_hand": "Q-J-Q",
+    "outcome": "Tie",
+    "shoe_id": "shoe_90",
+    "round": 22
+  },
+  {
+    "player_hand": "6-7-7",
+    "banker_hand": "9-4-4",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 23
+  },
+  {
+    "player_hand": "4-4",
+    "banker_hand": "4-7",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 24
+  },
+  {
+    "player_hand": "5-3",
+    "banker_hand": "4-5",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 25
+  },
+  {
+    "player_hand": "7-9",
+    "banker_hand": "2-9-4",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 26
+  },
+  {
+    "player_hand": "9-2-5",
+    "banker_hand": "8-8",
+    "outcome": "Tie",
+    "shoe_id": "shoe_90",
+    "round": 27
+  },
+  {
+    "player_hand": "Q-A-6",
+    "banker_hand": "4-2-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 28
+  },
+  {
+    "player_hand": "10-A-5",
+    "banker_hand": "3-K-5",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 29
+  },
+  {
+    "player_hand": "3-10-2",
+    "banker_hand": "3-Q-2",
+    "outcome": "Tie",
+    "shoe_id": "shoe_90",
+    "round": 30
+  },
+  {
+    "player_hand": "10-A-4",
+    "banker_hand": "7-7-9",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 31
+  },
+  {
+    "player_hand": "A-3-5",
+    "banker_hand": "3-8-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 32
+  },
+  {
+    "player_hand": "J-8",
+    "banker_hand": "10-7",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 33
+  },
+  {
+    "player_hand": "K-6",
+    "banker_hand": "6-4-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 34
+  },
+  {
+    "player_hand": "K-J-5",
+    "banker_hand": "9-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 35
+  },
+  {
+    "player_hand": "2-A-Q",
+    "banker_hand": "5-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 36
+  },
+  {
+    "player_hand": "5-5-J",
+    "banker_hand": "5-A",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 37
+  },
+  {
+    "player_hand": "K-3",
+    "banker_hand": "K-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 38
+  },
+  {
+    "player_hand": "8-6-2",
+    "banker_hand": "Q-A-6",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 39
+  },
+  {
+    "player_hand": "A-3-7",
+    "banker_hand": "7-7-10",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 40
+  },
+  {
+    "player_hand": "7-4-5",
+    "banker_hand": "Q-5-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 41
+  },
+  {
+    "player_hand": "6-10",
+    "banker_hand": "9-4-4",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 42
+  },
+  {
+    "player_hand": "2-4",
+    "banker_hand": "9-K",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 43
+  },
+  {
+    "player_hand": "8-4",
+    "banker_hand": "9-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 44
+  },
+  {
+    "player_hand": "6-5-9",
+    "banker_hand": "J-J-10",
+    "outcome": "Tie",
+    "shoe_id": "shoe_90",
+    "round": 45
+  },
+  {
+    "player_hand": "6-7-5",
+    "banker_hand": "Q-3-4",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 46
+  },
+  {
+    "player_hand": "Q-7",
+    "banker_hand": "6-9-6",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 47
+  },
+  {
+    "player_hand": "6-4",
+    "banker_hand": "8-10",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 48
+  },
+  {
+    "player_hand": "4-9-J",
+    "banker_hand": "6-A",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 49
+  },
+  {
+    "player_hand": "J-5-5",
+    "banker_hand": "8-7-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 50
+  },
+  {
+    "player_hand": "9-6-7",
+    "banker_hand": "2-8-A",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 51
+  },
+  {
+    "player_hand": "3-3",
+    "banker_hand": "Q-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 52
+  },
+  {
+    "player_hand": "9-K",
+    "banker_hand": "6-6",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 53
+  },
+  {
+    "player_hand": "J-4-9",
+    "banker_hand": "5-6-J",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 54
+  },
+  {
+    "player_hand": "J-2",
+    "banker_hand": "A-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_90",
+    "round": 55
+  },
+  {
+    "player_hand": "8-J",
+    "banker_hand": "2-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 56
+  },
+  {
+    "player_hand": "2-10-J",
+    "banker_hand": "K-2-8",
+    "outcome": "Player",
+    "shoe_id": "shoe_90",
+    "round": 57
+  },
+  {
+    "event": "SHOE_END",
+    "shoe_id": "shoe_90"
+  },
+  {
+    "event": "SHOE_START",
+    "shoe_id": "shoe_91"
+  },
+  {
+    "player_hand": "K-7",
+    "banker_hand": "2-3",
+    "outcome": "Player",
+    "shoe_id": "shoe_91",
+    "round": 1
+  },
+  {
+    "player_hand": "5-2",
+    "banker_hand": "6-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 2
+  },
+  {
+    "player_hand": "Q-K-3",
+    "banker_hand": "A-6",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 3
+  },
+  {
+    "player_hand": "7-2",
+    "banker_hand": "K-4",
+    "outcome": "Player",
+    "shoe_id": "shoe_91",
+    "round": 4
+  },
+  {
+    "player_hand": "3-7",
+    "banker_hand": "Q-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 5
+  },
+  {
+    "player_hand": "9-K",
+    "banker_hand": "K-6",
+    "outcome": "Player",
+    "shoe_id": "shoe_91",
+    "round": 6
+  },
+  {
+    "player_hand": "K-A-K",
+    "banker_hand": "6-Q",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 7
+  },
+  {
+    "player_hand": "7-A",
+    "banker_hand": "A-9",
+    "outcome": "Player",
+    "shoe_id": "shoe_91",
+    "round": 8
+  },
+  {
+    "player_hand": "3-5",
+    "banker_hand": "Q-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 9
+  },
+  {
+    "player_hand": "9-7",
+    "banker_hand": "9-J",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 10
+  },
+  {
+    "player_hand": "J-3-5",
+    "banker_hand": "Q-4-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_91",
+    "round": 11
+  },
+  {
+    "player_hand": "J-2",
+    "banker_hand": "9-J",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 12
+  },
+  {
+    "player_hand": "2-5",
+    "banker_hand": "J-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 13
+  },
+  {
+    "player_hand": "10-A-2",
+    "banker_hand": "8-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 14
+  },
+  {
+    "player_hand": "5-K-A",
+    "banker_hand": "2-4",
+    "outcome": "Tie",
+    "shoe_id": "shoe_91",
+    "round": 15
+  },
+  {
+    "player_hand": "K-4-A",
+    "banker_hand": "K-2-J",
+    "outcome": "Player",
+    "shoe_id": "shoe_91",
+    "round": 16
+  },
+  {
+    "player_hand": "6-10",
+    "banker_hand": "J-2-3",
+    "outcome": "Player",
+    "shoe_id": "shoe_91",
+    "round": 17
+  },
+  {
+    "player_hand": "A-K-J",
+    "banker_hand": "K-2-8",
+    "outcome": "Player",
+    "shoe_id": "shoe_91",
+    "round": 18
+  },
+  {
+    "player_hand": "Q-10-3",
+    "banker_hand": "5-J",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 19
+  },
+  {
+    "player_hand": "8-5-J",
+    "banker_hand": "10-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 20
+  },
+  {
+    "player_hand": "9-Q",
+    "banker_hand": "J-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_91",
+    "round": 21
+  },
+  {
+    "player_hand": "9-4-Q",
+    "banker_hand": "Q-J-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_91",
+    "round": 22
+  },
+  {
+    "player_hand": "10-K-5",
+    "banker_hand": "K-K-6",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 23
+  },
+  {
+    "player_hand": "10-6",
+    "banker_hand": "K-6",
+    "outcome": "Tie",
+    "shoe_id": "shoe_91",
+    "round": 24
+  },
+  {
+    "player_hand": "6-3",
+    "banker_hand": "Q-3",
+    "outcome": "Player",
+    "shoe_id": "shoe_91",
+    "round": 25
+  },
+  {
+    "player_hand": "9-A-J",
+    "banker_hand": "7-10",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 26
+  },
+  {
+    "player_hand": "6-J",
+    "banker_hand": "3-8-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_91",
+    "round": 27
+  },
+  {
+    "player_hand": "4-10-5",
+    "banker_hand": "A-A-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_91",
+    "round": 28
+  },
+  {
+    "player_hand": "K-10-4",
+    "banker_hand": "6-K",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 29
+  },
+  {
+    "player_hand": "Q-K-3",
+    "banker_hand": "2-3-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 30
+  },
+  {
+    "player_hand": "10-6",
+    "banker_hand": "8-8",
+    "outcome": "Tie",
+    "shoe_id": "shoe_91",
+    "round": 31
+  },
+  {
+    "player_hand": "10-7",
+    "banker_hand": "4-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_91",
+    "round": 32
+  },
+  {
+    "player_hand": "3-Q",
+    "banker_hand": "6-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 33
+  },
+  {
+    "player_hand": "7-5-J",
+    "banker_hand": "Q-4",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 34
+  },
+  {
+    "player_hand": "8-Q",
+    "banker_hand": "4-8",
+    "outcome": "Player",
+    "shoe_id": "shoe_91",
+    "round": 35
+  },
+  {
+    "player_hand": "8-2-10",
+    "banker_hand": "6-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 36
+  },
+  {
+    "player_hand": "J-2-3",
+    "banker_hand": "Q-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 37
+  },
+  {
+    "player_hand": "4-10",
+    "banker_hand": "6-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 38
+  },
+  {
+    "player_hand": "A-J-10",
+    "banker_hand": "K-5",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 39
+  },
+  {
+    "player_hand": "J-5-9",
+    "banker_hand": "5-8-6",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 40
+  },
+  {
+    "player_hand": "2-3",
+    "banker_hand": "9-Q",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 41
+  },
+  {
+    "player_hand": "5-7",
+    "banker_hand": "8-10",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 42
+  },
+  {
+    "player_hand": "5-8-A",
+    "banker_hand": "9-5",
+    "outcome": "Tie",
+    "shoe_id": "shoe_91",
+    "round": 43
+  },
+  {
+    "player_hand": "8-5-2",
+    "banker_hand": "6-9",
+    "outcome": "Tie",
+    "shoe_id": "shoe_91",
+    "round": 44
+  },
+  {
+    "player_hand": "5-7-3",
+    "banker_hand": "10-6",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 45
+  },
+  {
+    "player_hand": "6-3",
+    "banker_hand": "5-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_91",
+    "round": 46
+  },
+  {
+    "player_hand": "Q-K-5",
+    "banker_hand": "Q-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 47
+  },
+  {
+    "player_hand": "A-J-Q",
+    "banker_hand": "5-K",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 48
+  },
+  {
+    "player_hand": "J-Q-A",
+    "banker_hand": "10-K-A",
+    "outcome": "Tie",
+    "shoe_id": "shoe_91",
+    "round": 49
+  },
+  {
+    "player_hand": "5-10-3",
+    "banker_hand": "Q-4-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_91",
+    "round": 50
+  },
+  {
+    "player_hand": "7-2",
+    "banker_hand": "J-4",
+    "outcome": "Player",
+    "shoe_id": "shoe_91",
+    "round": 51
+  },
+  {
+    "player_hand": "2-A-2",
+    "banker_hand": "4-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 52
+  },
+  {
+    "player_hand": "6-4-4",
+    "banker_hand": "K-6",
+    "outcome": "Banker",
+    "shoe_id": "shoe_91",
+    "round": 53
+  },
+  {
+    "event": "SHOE_END",
+    "shoe_id": "shoe_91"
+  },
+  {
+    "event": "SHOE_START",
+    "shoe_id": "shoe_92"
+  },
+  {
+    "player_hand": "Q-9",
+    "banker_hand": "4-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 1
+  },
+  {
+    "player_hand": "Q-Q-K",
+    "banker_hand": "8-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 2
+  },
+  {
+    "player_hand": "K-Q",
+    "banker_hand": "9-Q",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 3
+  },
+  {
+    "player_hand": "3-6",
+    "banker_hand": "2-5",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 4
+  },
+  {
+    "player_hand": "3-A",
+    "banker_hand": "10-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 5
+  },
+  {
+    "player_hand": "4-7-J",
+    "banker_hand": "K-A-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 6
+  },
+  {
+    "player_hand": "K-4-9",
+    "banker_hand": "3-4",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 7
+  },
+  {
+    "player_hand": "3-8",
+    "banker_hand": "K-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 8
+  },
+  {
+    "player_hand": "3-9",
+    "banker_hand": "6-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 9
+  },
+  {
+    "player_hand": "A-J-J",
+    "banker_hand": "2-10-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 10
+  },
+  {
+    "player_hand": "J-2-3",
+    "banker_hand": "2-10-A",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 11
+  },
+  {
+    "player_hand": "4-6-J",
+    "banker_hand": "9-4-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 12
+  },
+  {
+    "player_hand": "8-6-A",
+    "banker_hand": "8-7",
+    "outcome": "Tie",
+    "shoe_id": "shoe_92",
+    "round": 13
+  },
+  {
+    "player_hand": "Q-5-2",
+    "banker_hand": "Q-A-5",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 14
+  },
+  {
+    "player_hand": "5-K-7",
+    "banker_hand": "8-8-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 15
+  },
+  {
+    "player_hand": "A-2-5",
+    "banker_hand": "K-7",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 16
+  },
+  {
+    "player_hand": "J-5-5",
+    "banker_hand": "9-A-5",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 17
+  },
+  {
+    "player_hand": "9-4-10",
+    "banker_hand": "7-K",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 18
+  },
+  {
+    "player_hand": "9-A-9",
+    "banker_hand": "J-Q-A",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 19
+  },
+  {
+    "player_hand": "2-K-6",
+    "banker_hand": "A-6",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 20
+  },
+  {
+    "player_hand": "9-Q",
+    "banker_hand": "K-3",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 21
+  },
+  {
+    "player_hand": "9-10",
+    "banker_hand": "5-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 22
+  },
+  {
+    "player_hand": "10-Q-10",
+    "banker_hand": "7-K",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 23
+  },
+  {
+    "player_hand": "4-J-9",
+    "banker_hand": "6-Q",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 24
+  },
+  {
+    "player_hand": "5-6-J",
+    "banker_hand": "6-5-K",
+    "outcome": "Tie",
+    "shoe_id": "shoe_92",
+    "round": 25
+  },
+  {
+    "player_hand": "9-7",
+    "banker_hand": "A-Q-9",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 26
+  },
+  {
+    "player_hand": "K-Q-10",
+    "banker_hand": "3-9-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 27
+  },
+  {
+    "player_hand": "7-10",
+    "banker_hand": "Q-A-A",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 28
+  },
+  {
+    "player_hand": "6-10",
+    "banker_hand": "8-10",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 29
+  },
+  {
+    "player_hand": "J-Q-6",
+    "banker_hand": "Q-5-4",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 30
+  },
+  {
+    "player_hand": "Q-9",
+    "banker_hand": "7-J",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 31
+  },
+  {
+    "player_hand": "5-7-J",
+    "banker_hand": "4-8-10",
+    "outcome": "Tie",
+    "shoe_id": "shoe_92",
+    "round": 32
+  },
+  {
+    "player_hand": "7-9",
+    "banker_hand": "K-10-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 33
+  },
+  {
+    "player_hand": "8-A",
+    "banker_hand": "8-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 34
+  },
+  {
+    "player_hand": "Q-J",
+    "banker_hand": "Q-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 35
+  },
+  {
+    "player_hand": "5-4",
+    "banker_hand": "8-7",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 36
+  },
+  {
+    "player_hand": "7-3-5",
+    "banker_hand": "2-Q-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 37
+  },
+  {
+    "player_hand": "6-8-4",
+    "banker_hand": "10-2-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 38
+  },
+  {
+    "player_hand": "Q-Q-2",
+    "banker_hand": "J-K-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 39
+  },
+  {
+    "player_hand": "3-6",
+    "banker_hand": "Q-4",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 40
+  },
+  {
+    "player_hand": "7-10",
+    "banker_hand": "J-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 41
+  },
+  {
+    "player_hand": "4-10-5",
+    "banker_hand": "Q-4-6",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 42
+  },
+  {
+    "player_hand": "10-Q",
+    "banker_hand": "8-A",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 43
+  },
+  {
+    "player_hand": "5-8-2",
+    "banker_hand": "5-J",
+    "outcome": "Tie",
+    "shoe_id": "shoe_92",
+    "round": 44
+  },
+  {
+    "player_hand": "J-J",
+    "banker_hand": "8-A",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 45
+  },
+  {
+    "player_hand": "2-Q-5",
+    "banker_hand": "4-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 46
+  },
+  {
+    "player_hand": "J-3-3",
+    "banker_hand": "K-5",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 47
+  },
+  {
+    "player_hand": "3-A-2",
+    "banker_hand": "4-6-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 48
+  },
+  {
+    "player_hand": "8-9",
+    "banker_hand": "5-10-7",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 49
+  },
+  {
+    "player_hand": "J-Q-10",
+    "banker_hand": "A-Q-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 50
+  },
+  {
+    "player_hand": "10-10-2",
+    "banker_hand": "3-Q-4",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 51
+  },
+  {
+    "player_hand": "A-2-10",
+    "banker_hand": "4-8-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 52
+  },
+  {
+    "player_hand": "7-5-9",
+    "banker_hand": "9-2-A",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 53
+  },
+  {
+    "player_hand": "6-10",
+    "banker_hand": "9-J",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 54
+  },
+  {
+    "player_hand": "8-7",
+    "banker_hand": "2-K-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 55
+  },
+  {
+    "player_hand": "K-10",
+    "banker_hand": "6-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 56
+  },
+  {
+    "player_hand": "4-7",
+    "banker_hand": "6-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 57
+  },
+  {
+    "player_hand": "10-2-6",
+    "banker_hand": "K-3-6",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 58
+  },
+  {
+    "player_hand": "6-6-J",
+    "banker_hand": "10-10-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_92",
+    "round": 59
+  },
+  {
+    "player_hand": "6-3",
+    "banker_hand": "A-J",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 60
+  },
+  {
+    "player_hand": "K-8",
+    "banker_hand": "3-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_92",
+    "round": 61
+  },
+  {
+    "player_hand": "K-8",
+    "banker_hand": "5-3",
+    "outcome": "Tie",
+    "shoe_id": "shoe_92",
+    "round": 62
+  },
+  {
+    "event": "SHOE_END",
+    "shoe_id": "shoe_92"
+  },
+  {
+    "event": "SHOE_START",
+    "shoe_id": "shoe_93"
+  },
+  {
+    "player_hand": "6-3",
+    "banker_hand": "5-3",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 1
+  },
+  {
+    "player_hand": "K-5",
+    "banker_hand": "7-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 2
+  },
+  {
+    "player_hand": "5-8-7",
+    "banker_hand": "Q-J-J",
+    "outcome": "Tie",
+    "shoe_id": "shoe_93",
+    "round": 3
+  },
+  {
+    "player_hand": "6-A",
+    "banker_hand": "Q-J-5",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 4
+  },
+  {
+    "player_hand": "K-5-4",
+    "banker_hand": "J-Q-J",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 5
+  },
+  {
+    "player_hand": "K-J-3",
+    "banker_hand": "3-A-Q",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 6
+  },
+  {
+    "player_hand": "A-J-7",
+    "banker_hand": "Q-A-3",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 7
+  },
+  {
+    "player_hand": "6-J",
+    "banker_hand": "Q-K-A",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 8
+  },
+  {
+    "player_hand": "9-A-K",
+    "banker_hand": "6-4-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 9
+  },
+  {
+    "player_hand": "8-2-2",
+    "banker_hand": "7-Q",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 10
+  },
+  {
+    "player_hand": "2-3",
+    "banker_hand": "4-4",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 11
+  },
+  {
+    "player_hand": "3-4",
+    "banker_hand": "K-10-7",
+    "outcome": "Tie",
+    "shoe_id": "shoe_93",
+    "round": 12
+  },
+  {
+    "player_hand": "Q-7",
+    "banker_hand": "4-K-J",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 13
+  },
+  {
+    "player_hand": "4-9-Q",
+    "banker_hand": "J-2-4",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 14
+  },
+  {
+    "player_hand": "4-3",
+    "banker_hand": "K-J-6",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 15
+  },
+  {
+    "player_hand": "3-K-5",
+    "banker_hand": "2-A-3",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 16
+  },
+  {
+    "player_hand": "3-8-K",
+    "banker_hand": "J-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 17
+  },
+  {
+    "player_hand": "4-K-Q",
+    "banker_hand": "10-10-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 18
+  },
+  {
+    "player_hand": "9-A-9",
+    "banker_hand": "A-4",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 19
+  },
+  {
+    "player_hand": "3-8-10",
+    "banker_hand": "6-J",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 20
+  },
+  {
+    "player_hand": "K-Q-3",
+    "banker_hand": "3-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 21
+  },
+  {
+    "player_hand": "4-9-A",
+    "banker_hand": "Q-10-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 22
+  },
+  {
+    "player_hand": "6-9-4",
+    "banker_hand": "3-2-7",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 23
+  },
+  {
+    "player_hand": "10-2-10",
+    "banker_hand": "9-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 24
+  },
+  {
+    "player_hand": "2-4",
+    "banker_hand": "9-10",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 25
+  },
+  {
+    "player_hand": "A-8",
+    "banker_hand": "A-7",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 26
+  },
+  {
+    "player_hand": "9-8",
+    "banker_hand": "10-7",
+    "outcome": "Tie",
+    "shoe_id": "shoe_93",
+    "round": 27
+  },
+  {
+    "player_hand": "5-9",
+    "banker_hand": "4-4",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 28
+  },
+  {
+    "player_hand": "6-4",
+    "banker_hand": "6-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 29
+  },
+  {
+    "player_hand": "3-7",
+    "banker_hand": "A-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 30
+  },
+  {
+    "player_hand": "7-10",
+    "banker_hand": "5-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 31
+  },
+  {
+    "player_hand": "2-A-8",
+    "banker_hand": "2-J-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 32
+  },
+  {
+    "player_hand": "7-6",
+    "banker_hand": "J-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 33
+  },
+  {
+    "player_hand": "9-3-K",
+    "banker_hand": "A-5",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 34
+  },
+  {
+    "player_hand": "8-7",
+    "banker_hand": "J-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 35
+  },
+  {
+    "player_hand": "8-K",
+    "banker_hand": "9-4",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 36
+  },
+  {
+    "player_hand": "5-J-8",
+    "banker_hand": "J-3",
+    "outcome": "Tie",
+    "shoe_id": "shoe_93",
+    "round": 37
+  },
+  {
+    "player_hand": "5-A",
+    "banker_hand": "K-3-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 38
+  },
+  {
+    "player_hand": "2-9-5",
+    "banker_hand": "5-7-J",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 39
+  },
+  {
+    "player_hand": "5-6-4",
+    "banker_hand": "9-A-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 40
+  },
+  {
+    "player_hand": "A-7",
+    "banker_hand": "6-8",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 41
+  },
+  {
+    "player_hand": "3-J-A",
+    "banker_hand": "4-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 42
+  },
+  {
+    "player_hand": "4-4",
+    "banker_hand": "5-3",
+    "outcome": "Tie",
+    "shoe_id": "shoe_93",
+    "round": 43
+  },
+  {
+    "player_hand": "8-9",
+    "banker_hand": "2-A-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 44
+  },
+  {
+    "player_hand": "A-9-8",
+    "banker_hand": "J-2-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 45
+  },
+  {
+    "player_hand": "J-2-8",
+    "banker_hand": "6-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 46
+  },
+  {
+    "player_hand": "5-7",
+    "banker_hand": "8-10",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 47
+  },
+  {
+    "player_hand": "J-5-5",
+    "banker_hand": "5-8-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 48
+  },
+  {
+    "player_hand": "10-3-6",
+    "banker_hand": "7-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 49
+  },
+  {
+    "player_hand": "7-K",
+    "banker_hand": "K-5-5",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 50
+  },
+  {
+    "player_hand": "K-2-8",
+    "banker_hand": "Q-10-10",
+    "outcome": "Tie",
+    "shoe_id": "shoe_93",
+    "round": 51
+  },
+  {
+    "player_hand": "K-3-2",
+    "banker_hand": "4-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_93",
+    "round": 52
+  },
+  {
+    "player_hand": "9-7",
+    "banker_hand": "2-3-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 53
+  },
+  {
+    "player_hand": "J-9",
+    "banker_hand": "10-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 54
+  },
+  {
+    "player_hand": "7-Q",
+    "banker_hand": "10-2-4",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 55
+  },
+  {
+    "player_hand": "2-K-4",
+    "banker_hand": "2-9-9",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 56
+  },
+  {
+    "player_hand": "A-A-10",
+    "banker_hand": "6-4-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 57
+  },
+  {
+    "player_hand": "6-3",
+    "banker_hand": "7-J",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 58
+  },
+  {
+    "player_hand": "5-3",
+    "banker_hand": "K-5",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 59
+  },
+  {
+    "player_hand": "Q-8",
+    "banker_hand": "2-5",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 60
+  },
+  {
+    "player_hand": "5-4",
+    "banker_hand": "Q-6",
+    "outcome": "Player",
+    "shoe_id": "shoe_93",
+    "round": 61
+  },
+  {
+    "event": "SHOE_END",
+    "shoe_id": "shoe_93"
+  },
+  {
+    "event": "SHOE_START",
+    "shoe_id": "shoe_94"
+  },
+  {
+    "player_hand": "5-2",
+    "banker_hand": "Q-7",
+    "outcome": "Tie",
+    "shoe_id": "shoe_94",
+    "round": 1
+  },
+  {
+    "player_hand": "2-4",
+    "banker_hand": "A-A-A",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 2
+  },
+  {
+    "player_hand": "A-7",
+    "banker_hand": "10-7",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 3
+  },
+  {
+    "player_hand": "A-Q-10",
+    "banker_hand": "8-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 4
+  },
+  {
+    "player_hand": "6-Q",
+    "banker_hand": "6-7-7",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 5
+  },
+  {
+    "player_hand": "6-10",
+    "banker_hand": "Q-3-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 6
+  },
+  {
+    "player_hand": "J-3-6",
+    "banker_hand": "9-4-8",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 7
+  },
+  {
+    "player_hand": "9-A-K",
+    "banker_hand": "4-7-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 8
+  },
+  {
+    "player_hand": "Q-4",
+    "banker_hand": "8-A",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 9
+  },
+  {
+    "player_hand": "J-A-J",
+    "banker_hand": "7-K",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 10
+  },
+  {
+    "player_hand": "2-J-4",
+    "banker_hand": "4-10-J",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 11
+  },
+  {
+    "player_hand": "7-7-A",
+    "banker_hand": "J-A-4",
+    "outcome": "Tie",
+    "shoe_id": "shoe_94",
+    "round": 12
+  },
+  {
+    "player_hand": "J-8",
+    "banker_hand": "7-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 13
+  },
+  {
+    "player_hand": "2-9-10",
+    "banker_hand": "K-A-K",
+    "outcome": "Tie",
+    "shoe_id": "shoe_94",
+    "round": 14
+  },
+  {
+    "player_hand": "7-Q",
+    "banker_hand": "9-10",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 15
+  },
+  {
+    "player_hand": "Q-Q-Q",
+    "banker_hand": "7-K",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 16
+  },
+  {
+    "player_hand": "Q-J-2",
+    "banker_hand": "4-6-5",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 17
+  },
+  {
+    "player_hand": "8-7-3",
+    "banker_hand": "10-Q-2",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 18
+  },
+  {
+    "player_hand": "3-J-3",
+    "banker_hand": "7-K",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 19
+  },
+  {
+    "player_hand": "5-3",
+    "banker_hand": "7-4",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 20
+  },
+  {
+    "player_hand": "3-3",
+    "banker_hand": "4-2",
+    "outcome": "Tie",
+    "shoe_id": "shoe_94",
+    "round": 21
+  },
+  {
+    "player_hand": "3-9-J",
+    "banker_hand": "7-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 22
+  },
+  {
+    "player_hand": "8-A",
+    "banker_hand": "10-6",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 23
+  },
+  {
+    "player_hand": "A-9",
+    "banker_hand": "8-K",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 24
+  },
+  {
+    "player_hand": "4-9-3",
+    "banker_hand": "A-Q-5",
+    "outcome": "Tie",
+    "shoe_id": "shoe_94",
+    "round": 25
+  },
+  {
+    "player_hand": "3-A-K",
+    "banker_hand": "J-Q-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 26
+  },
+  {
+    "player_hand": "A-8",
+    "banker_hand": "K-8",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 27
+  },
+  {
+    "player_hand": "A-4-8",
+    "banker_hand": "6-K",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 28
+  },
+  {
+    "player_hand": "J-9",
+    "banker_hand": "3-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 29
+  },
+  {
+    "player_hand": "4-Q-5",
+    "banker_hand": "A-6",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 30
+  },
+  {
+    "player_hand": "9-A-K",
+    "banker_hand": "A-2-K",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 31
+  },
+  {
+    "player_hand": "4-2",
+    "banker_hand": "J-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 32
+  },
+  {
+    "player_hand": "8-2-4",
+    "banker_hand": "3-7-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 33
+  },
+  {
+    "player_hand": "J-K",
+    "banker_hand": "6-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 34
+  },
+  {
+    "player_hand": "Q-2",
+    "banker_hand": "J-9",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 35
+  },
+  {
+    "player_hand": "3-3",
+    "banker_hand": "7-8-2",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 36
+  },
+  {
+    "player_hand": "2-K-5",
+    "banker_hand": "5-Q-5",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 37
+  },
+  {
+    "player_hand": "4-Q-4",
+    "banker_hand": "8-5-8",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 38
+  },
+  {
+    "player_hand": "Q-J-10",
+    "banker_hand": "9-2-6",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 39
+  },
+  {
+    "player_hand": "6-7",
+    "banker_hand": "6-3",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 40
+  },
+  {
+    "player_hand": "5-9-4",
+    "banker_hand": "10-2-8",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 41
+  },
+  {
+    "player_hand": "6-3",
+    "banker_hand": "J-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 42
+  },
+  {
+    "player_hand": "8-4-3",
+    "banker_hand": "7-4-8",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 43
+  },
+  {
+    "player_hand": "2-K-J",
+    "banker_hand": "6-4-A",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 44
+  },
+  {
+    "player_hand": "10-5",
+    "banker_hand": "8-J",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 45
+  },
+  {
+    "player_hand": "7-Q",
+    "banker_hand": "2-2-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 46
+  },
+  {
+    "player_hand": "K-5",
+    "banker_hand": "8-A",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 47
+  },
+  {
+    "player_hand": "K-A-6",
+    "banker_hand": "5-2",
+    "outcome": "Tie",
+    "shoe_id": "shoe_94",
+    "round": 48
+  },
+  {
+    "player_hand": "6-10",
+    "banker_hand": "5-A",
+    "outcome": "Tie",
+    "shoe_id": "shoe_94",
+    "round": 49
+  },
+  {
+    "player_hand": "10-2-K",
+    "banker_hand": "A-5",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 50
+  },
+  {
+    "player_hand": "K-J-8",
+    "banker_hand": "10-J-5",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 51
+  },
+  {
+    "player_hand": "3-9-5",
+    "banker_hand": "6-10",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 52
+  },
+  {
+    "player_hand": "7-6-4",
+    "banker_hand": "7-7-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 53
+  },
+  {
+    "player_hand": "9-4-6",
+    "banker_hand": "9-3-Q",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 54
+  },
+  {
+    "player_hand": "10-Q-J",
+    "banker_hand": "5-K",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 55
+  },
+  {
+    "player_hand": "3-5",
+    "banker_hand": "5-4",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 56
+  },
+  {
+    "player_hand": "4-5",
+    "banker_hand": "J-J",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 57
+  },
+  {
+    "player_hand": "A-6",
+    "banker_hand": "2-Q-J",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 58
+  },
+  {
+    "player_hand": "7-4-9",
+    "banker_hand": "K-A-9",
+    "outcome": "Tie",
+    "shoe_id": "shoe_94",
+    "round": 59
+  },
+  {
+    "player_hand": "9-2-3",
+    "banker_hand": "Q-5",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 60
+  },
+  {
+    "player_hand": "6-4",
+    "banker_hand": "9-J",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 61
+  },
+  {
+    "player_hand": "8-3-4",
+    "banker_hand": "5-7-9",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 62
+  },
+  {
+    "player_hand": "5-Q-3",
+    "banker_hand": "3-9-K",
+    "outcome": "Player",
+    "shoe_id": "shoe_94",
+    "round": 63
+  },
+  {
+    "player_hand": "K-2-K",
+    "banker_hand": "8-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 64
+  },
+  {
+    "player_hand": "K-2-K",
+    "banker_hand": "8-7",
+    "outcome": "Banker",
+    "shoe_id": "shoe_94",
+    "round": 65
+  },
+  {
+    "event": "SHOE_END",
+    "shoe_id": "shoe_94"
   }
 ]
